@@ -1,0 +1,5 @@
+.DS_Store
+node_modules/
+
+# Índice local de CodeGraph (SQLite, regenerable)
+.codegraph/
