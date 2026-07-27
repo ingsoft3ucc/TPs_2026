@@ -1,7 +1,7 @@
 # Ingeniería del Software 3 — Práctica · UCC 2026
 
 > **Ingeniería en Sistemas · 4to año** — Cátedra práctica: DevOps de punta a punta, sobre una aplicación tuya.
-> Docente: Ing. Ariel Schwindt (MCT — el temario está construido sobre la base del curso oficial AZ-400, adaptado a cursada universitaria multi-cloud).
+> Docente: Ing. Ariel Schwindt
 
 Este documento es el **reglamento operativo** de la práctica: cómo funciona la cursada, cómo se evalúa, qué reglas rigen y dónde está cada cosa. Leelo entero una vez; volvé cuando tengas dudas.
 
@@ -44,7 +44,7 @@ A partir del **TP2** elegís una aplicación **full-stack (frontend + backend + 
 
 Ninguna nube es obligatoria. Cada TP incluye:
 
-- **Riel GitHub (canónico)** — GitHub Actions + servicios gratuitos verificados **sin tarjeta de crédito**. Es el riel de las demos y trae la **guía paso a paso completa**. Garantía de la cátedra: **todo lo evaluable se puede completar gratis y sin tarjeta** por este riel (con fallback local documentado — self-hosted runner + docker-compose — si un servicio gratuito muta a mitad de semestre).
+- **Riel GitHub (canónico)** — GitHub Actions + servicios gratuitos verificados **sin tarjeta de crédito**. Es el riel de las demos y trae la **guía paso a paso completa**. Todo lo evaluable se puede completar por acá **sin costo**, y hay **fallback local documentado** (self-hosted runner + docker-compose) por si un servicio gratuito cambia sus condiciones a mitad de semestre.
 - **Riel Azure** — Azure DevOps / Azure (el stack de la certificación AZ-400). Cada TP trae la **tabla de equivalencias + checkpoints**. Estado 2026: los minutos hosted de Azure Pipelines requieren organización vinculada a una suscripción (Azure for Students no pide tarjeta — verificalo antes de apostar tu TP); la alternativa sin tarjeta en ese riel es el agente self-hosted.
 - **Tier libre** — AWS, GCP, GitLab u otra: permitido con el **mismo contrato de entregables**, soporte limitado de la cátedra. Ojo: GitLab pide tarjeta para validar sus runners compartidos.
 
@@ -89,7 +89,7 @@ La IA es una herramienta de productividad, no un reemplazo del entendimiento. Co
 
 ## 8. Logística
 
-- **Clases**: teoría (~45') + pausa (10') + demo en vivo (~35') + presentación del TP + **manos a la obra** (~50' de trabajo en clase con soporte). Traé tu notebook con Docker funcionando desde la C2.
+- **Cómo es una clase**: bloque teórico + pausa + demo en vivo + presentación del TP + **manos a la obra** (trabajás sobre tu propio TP en el aula, con soporte). La teoría acá es **la de la práctica**: los fundamentos que necesitás para resolver el TP de la semana y para defenderlo — no repite ni reemplaza a la materia teórica. Traé tu notebook con Docker funcionando desde la C2.
 - **Consultas**: en clase (el bloque de manos a la obra existe para eso) y por los canales del aula virtual.
 - **Los enunciados** de la carpeta [`trabajos/`](trabajos/) son la fuente de verdad de cada TP: guía sugerida (aprendizaje) + TP entregable (evaluación). La guía no se entrega; el TP sí.
 - **Las filminas** de cada clase, en PDF, están en [`clases/`](clases/) — se publican después de dictada la clase.
