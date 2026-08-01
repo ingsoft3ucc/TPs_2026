@@ -79,6 +79,8 @@ La IA (ChatGPT, Copilot, Claude…) está **permitida y alentada** — es como s
 2. **Verificaste** lo que la IA produjo (y contás cómo).
 3. **Podés defenderlo**: si en la defensa no podés explicar una decisión que la IA tomó por vos, ese punto **no se aprueba**.
 
+**Las tres valen también para la IA que opera, no solo para la que escribe.** Hoy hay agentes que investigan un incidente y proponen la causa raíz, que generan y corren el plan de pruebas de un release, o que configuran el pipeline solos. Si usás uno, la vara es la misma: declarado, verificado y defendible.
+
 La IA es una herramienta de productividad, no un reemplazo del entendimiento. Copiar sin entender no es un atajo: es la forma más cara de desaprobar la defensa.
 
 ## 7. Trabajo en equipo y honestidad
