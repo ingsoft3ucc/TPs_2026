@@ -1,9 +1,9 @@
-# ⚠️ IMPORTANTE – Guía de Práctica Sugerida
+# ⚠️ Cómo leer este documento
 
-Este documento tiene **dos partes**:
+Tiene **dos partes**, y las dos te sirven:
 
-1. **Guía de práctica sugerida** (esta primera parte): un paso a paso para aprender haciendo. Te recomendamos fuertemente completarla, pero **NO es lo que se entrega**.
-2. **El Trabajo Práctico entregable** (al final del documento): un escenario con tareas, entregables y defensa oral. **Eso es lo que se evalúa.**
+1. **La guía paso a paso** (lo que sigue): es **el camino para hacer el TP**. Seguila de arriba a abajo y al terminar vas a tener el trabajo hecho. Tiene **checkpoints** ✅ para verificar que vas bien, y cuatro momentos marcados 📸 donde tenés que sacar una captura.
+2. **El enunciado del TP** (al final): qué se entrega y qué se evalúa. **La guía no se entrega** — lo que se entrega es tu repositorio, con los archivos `decisiones.md` y `evidencias.md`.
 
 ## Sobre las herramientas en esta materia
 
@@ -19,15 +19,15 @@ En esta materia hay dos **rieles** — caminos guiados con soporte de la cátedr
 
 ## 1- Objetivos de Aprendizaje
 
-- Diseñar y justificar una **estrategia de branching** para un equipo.
-- Trabajar con **Pull Requests** y code review como mecanismo central de colaboración.
+- Entender cómo un equipo integra su trabajo: **ramas cortas** que entran por Pull Request.
+- Trabajar con **Pull Requests**: la unidad con la que un equipo propone, revisa e integra cambios.
 - Configurar **protecciones de rama** que impidan romper `main`.
 - Resolver conflictos de merge de forma controlada.
 - Versionar entregas con **tags y releases** usando versionado semántico.
 
 ## 2- Nivelación previa (si nunca usaste Git)
 
-Esta guía asume que ya sabés hacer `clone`, `add`, `commit`, `push`, `pull` y crear ramas. Si no:
+La mayor parte de esta guía se hace **desde la web de GitHub**, así que no necesitás pelearte con la consola para arrancar. Sí vas a usar `clone`, `add`, `commit`, `push` y `pull` en algunos pasos, y la guía te dice exactamente cuándo y para qué. Si nunca los usaste, con estos dos recursos alcanza:
 
 - Guía de nivelación (curso 2025): https://github.com/ingsoft3ucc/TPs_2025/blob/main/trabajos/01-git-basico.md
 - Ejercicios interactivos (completar al menos la *Introduction Sequence*): https://learngitbranching.js.org/
@@ -139,7 +139,7 @@ A ← B ← C ← F ←── M (main)     M = commit de merge (2 padres): une F
 | Squash | Lineal, 1 commit por PR | Legibilidad, revert fácil | El paso a paso interno del PR |
 | Rebase | Lineal, commits originales | Ambas cosas… | …a costa de reescribir historia (riesgoso compartido) |
 
-No hay uno "correcto": hay que **elegir y justificar** según el valor que le des al historial. (En este TP lo vas a decidir y defender.)
+No hay uno "correcto": hay que **elegir y justificar** según el valor que le des al historial. En este TP usamos **squash** (te lo damos hecho, igual que la estrategia de branching); en el **TP4** vas a tener que elegir y defender el tuyo, ya con experiencia encima.
 
 Ojo con el conteo: el **fast-forward no es una opción que elijas** en el botón de merge de un PR — es el caso automático cuando `main` no avanzó. Las tres estrategias de la tabla son las opciones reales del botón.
 
@@ -205,57 +205,175 @@ Un **tag** marca un commit con un nombre inmutable ("acá estaba el código de l
 
 El número de versión no es decorativo: es **información para el que consume** tu software. En TP2 vas a taguear imágenes de contenedor con semver, y en TP6 los deploys van a nacer de tags — la disciplina empieza acá.
 
-## 4- Desarrollo de la guía (riel GitHub, CLI-first)
+## 4- Desarrollo de la guía (riel GitHub)
 
-> Vamos a usar la **CLI oficial de GitHub (`gh`)** además de `git`. Todo lo que hagas por CLI también se puede hacer por la web — pero la CLI es reproducible, se puede documentar en un script, y es el mismo enfoque que vas a usar en pipelines.
+> **Cómo está organizada esta guía.** Cada paso lo vas a hacer donde lo haría un equipo de verdad,
+> y eso depende del **rol**, no de la herramienta:
+>
+> - Lo que hace el **reviewer** y el **administrador del repo** (revisar un PR, mergear, configurar
+>   las protecciones, publicar una release) pasa **en la web de GitHub**. Ahí vas a estar la mayor
+>   parte del tiempo.
+> - Lo que hace el **autor** cuando el cambio deja de ser un archivo suelto (traer el repositorio a
+>   tu máquina, versionar archivos que no editás en el navegador, crear el tag) pasa **en tu
+>   máquina**: la terminal — o tu editor, ver §4.9. Son unos pocos momentos puntuales, y cada uno
+>   está anunciado.
+>
+> En este TP los tres roles los ocupás vos, pero cada cosa se hace donde va. En varios pasos vas a
+> ver un bloque plegable **"Lo mismo por consola"** con los comandos equivalentes, por si algún día
+> querés automatizarlo. **No hace falta abrirlos para aprobar el TP.**
+
+📸 **Ojo con las evidencias:** cuatro momentos de esta guía son irrepetibles — una vez que pasan, no
+los podés volver a capturar. Están marcados con 📸 **SACÁ LA CAPTURA AHORA**. Son los que van en
+`evidencias.md`.
 
 ### 4.1 Setup
 
-- Instalar `git` (https://git-scm.com) y `gh` (https://cli.github.com).
-- Configurar identidad y autenticarse:
+Lo mínimo indispensable:
+
+1. Una cuenta de **GitHub** (gratis, sin tarjeta): https://github.com/signup
+2. **Git** instalado en tu máquina: https://git-scm.com
+3. Configurar tu identidad (esto queda grabado en cada commit que hagas):
 
 ```bash
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu@mail.com"
-
-gh auth login        # seguir el wizard (GitHub.com, HTTPS, login por browser)
-gh auth status       # verificar
 ```
 
-**✅ Checkpoint:** `gh auth status` te muestra logueado con tu cuenta.
+4. **Dejar a Git autenticado contra GitHub.** Esto no es opcional: sin esto, tu primer `git push`
+   va a fallar. Desde 2021 GitHub **no acepta tu contraseña** desde la terminal, así que necesitás
+   una de estas dos:
 
-### 4.2 Crear el repositorio del proyecto
+   - **Camino recomendado — instalar `gh`** (https://cli.github.com) y correr `gh auth login`:
+     elegí *GitHub.com* → *HTTPS* → *Login with a web browser*. Además de autenticarte, deja a Git
+     configurado para siempre. Verificá con `gh auth status`.
+   - **Sin instalar nada** — creá un *Personal Access Token* en
+     https://github.com/settings/tokens (*Generate new token (classic)* → alcance **repo**), y
+     cuando `git push` te pida usuario y contraseña, poné tu usuario y **pegá el token como
+     contraseña**. Guardalo en algún lado: no se vuelve a mostrar.
+
+   > 💥 Si al pushear ves *"Authentication failed"*, *"Support for password authentication was
+   > removed"* o *"could not read Username"*, es esto — no es un problema de permisos del
+   > repositorio. En Windows, Git suele abrirte una ventana del navegador y resolverlo solo.
+
+> 💡 Más allá de la autenticación, `gh` sirve para hacer desde la terminal cosas que normalmente
+> harías en la web: es lo que usan los bloques "Lo mismo por consola" de esta guía. Podés ignorarlos
+> por completo: **el TP se aprueba haciendo todo por la web.**
+
+**✅ Checkpoint:** `git config --global user.name` te devuelve tu nombre, entrás a tu cuenta de GitHub
+desde el browser, y tenés resuelto cómo te vas a autenticar al pushear (token o `gh auth login`).
+
+### 4.2 Crear el repositorio (en la web)
+
+Crear un repositorio es un acto de administrador — se hace en la web y se ve todo lo que estás
+decidiendo:
+
+1. Entrá a **https://github.com/new**
+2. **Repository name**: `ingsoft3-tp01`
+3. **Visibility**: **Public** — es requisito de la materia (§4 del reglamento explica por qué).
+4. **Add README**: activá el interruptor. Así el repositorio nace con un archivo y una rama `main`,
+   en vez de nacer vacío.
+5. **Create repository**.
+
+Fijate en la URL que te quedó: `github.com/<tu_usuario>/ingsoft3-tp01`. **Esa es la URL que vas a
+entregar.**
+
+<details>
+<summary>💻 Lo mismo por consola</summary>
 
 ```bash
-# Crea un repo PÚBLICO en tu cuenta, con README, y lo clona localmente
-gh repo create ingsoft3-tp01 --public --add-readme --clone
+gh repo create ingsoft3-tp01 --public --add-readme
+```
+</details>
+
+**✅ Checkpoint:** el repositorio existe, es público, y tiene un `README.md` en la rama `main`.
+
+### 4.3 Traerlo a tu máquina y hacer tu primer commit
+
+Esto sí es trabajo de autor, y por eso va en tu máquina. Son los tres comandos que vas a repetir toda
+la materia: `add`, `commit`, `push`.
+
+```bash
+git clone https://github.com/<tu_usuario>/ingsoft3-tp01.git
 cd ingsoft3-tp01
 ```
 
-- Agregar un `.gitignore` acorde al stack que vas a usar en la materia (por ejemplo el de `dotnet`, `node`, etc. — podés partir de https://github.com/github/gitignore).
-- Primer commit con mensaje descriptivo:
+`clone` te baja una **copia completa** del repositorio, con todo su historial — no una foto del
+último estado (§3.2).
+
+Ahora **creá** un archivo llamado `.gitignore` en la raíz del proyecto (con tu editor, o con
+`touch .gitignore` y después abriéndolo). Es el archivo que le dice a Git qué cosas **no** se
+versionan: binarios, dependencias, secretos. Copiale adentro el contenido que corresponda a tu stack
+desde https://github.com/github/gitignore. Después:
 
 ```bash
-git add .gitignore
+git status                     # ves el archivo nuevo, sin seguimiento
+git add .gitignore             # lo pasás al área de staging (§3.3)
 git commit -m "chore: agrega .gitignore para el stack del proyecto"
 git push
 ```
 
-**✅ Checkpoint:** el repo existe en `github.com/<tu_usuario>/ingsoft3-tp01`, es público, y tiene README + .gitignore en `main`.
+Mensajes descriptivos y en tiempo imperativo: el historial es documentación.
 
-### 4.3 Elegir y documentar la estrategia de branching
+**✅ Checkpoint:** el `.gitignore` se ve en la página del repositorio, y `git log --oneline` te
+muestra tu commit.
 
-- Elegí una de las 3 estrategias (para esta materia recomendamos **GitHub Flow**).
-- Creá el archivo `decisiones.md` y documentá: cuál elegiste, por qué, y qué convención de nombres de rama van a usar (ej: `feature/<descripcion>`, `fix/<descripcion>`).
-- Subilo a `main` (por ahora directo — en el próximo paso eso deja de ser posible).
+### 4.4 Proteger `main` (en la web)
 
-**✅ Checkpoint:** `decisiones.md` está en `main` con la estrategia elegida y la convención de nombres de ramas.
+Esta es la configuración más importante del TP: hacer que **nadie pueda pushear directo a `main`** —
+ni siquiera vos. Todo cambio va a tener que entrar por un Pull Request.
 
-### 4.4 Proteger `main`
+En la web son tres decisiones:
 
-Ahora hacemos que **nadie pueda pushear directo a `main`** (ni siquiera vos): todo cambio entra por Pull Request.
+1. En tu repositorio: **Settings → Branches → Add branch protection rule**
+   (o *Add classic branch protection rule*, según cómo te lo muestre GitHub).
+2. **Branch name pattern**: `main`
+3. Activá **Require a pull request before merging**.
+   ⚠️ Al activarlo, GitHub **tilda solo** la casilla *Require approvals* que aparece debajo, con el
+   valor 1. **Destildala**: tiene que quedar en **cero aprobaciones obligatorias**. Si te la olvidás
+   tildada, en el paso §4.5 no vas a poder mergear tu propio PR y el mensaje no te va a decir que el
+   problema está acá.
+4. Bajá hasta el final y activá **Do not allow bypassing the above settings**.
+5. **Create** / **Save changes**.
 
-Por CLI (la API de branch protection):
+Por qué cada una:
+
+- **Require a pull request**: es la regla del juego — nada entra a `main` sin pasar por un PR.
+- **Cero aprobaciones**: este TP es **individual**, y en GitHub **el autor de un PR nunca puede
+  aprobar su propio PR** (no es configurable: la opción aparece deshabilitada, y por API devuelve
+  `422 — Can not approve your own pull request`). Si pidieras una aprobación, no podrías mergear
+  nunca. En un equipo real, acá iría 1 o más.
+- **Do not allow bypassing**: la regla te alcanza **también a vos**, que sos el dueño del repo. Sin
+  esto, GitHub te dejaría saltearla — y una protección que el dueño puede saltear es de adorno.
+
+> ⚠️ **Si en vez de *Branches* usaste *Rules → Rulesets*** (una feature distinta y más nueva de
+> GitHub que hace lo mismo): el equivalente de *Do not allow bypassing* es dejar la **bypass list
+> vacía**. No mezcles los dos mecanismos — elegí uno y verificá con la prueba de acá abajo.
+
+#### La prueba de fuego: que te rechace a vos
+
+Una protección que nunca rechazó nada no se sabe si funciona. Probala:
+
+```bash
+echo "test" >> README.md
+git commit -am "test: intento de push directo"
+git push          # ← esto TIENE que fallar
+```
+
+Vas a ver un error que dice `protected branch hook declined` o similar.
+
+📸 **SACÁ LA CAPTURA AHORA** — ese rechazo es la evidencia número uno del TP.
+
+Después deshacé el commit local, que ya no sirve:
+
+```bash
+git reset --hard HEAD~1
+```
+
+<details>
+<summary>💻 Lo mismo por consola (opcional, avanzado)</summary>
+
+La misma regla se puede configurar contra la API de GitHub. Queda scripteada y reproducible, que es
+la ventaja — pero es bastante más densa que las tres tildes de arriba:
 
 ```bash
 gh api --method PUT "repos/{owner}/{repo}/branches/main/protection" \
@@ -269,173 +387,263 @@ gh api --method PUT "repos/{owner}/{repo}/branches/main/protection" \
 EOF
 ```
 
-Qué configura cada línea:
+`enforce_admins: true` es el equivalente de *Do not allow bypassing*.
 
-- `required_pull_request_reviews` con `required_approving_review_count: 0`: **todo cambio tiene que entrar por PR**, pero sin approvals obligatorias de otra persona — este TP es individual, así que vas a poder mergear tus propios PRs. En un equipo real acá iría `1` o más (lo viste en §3.6, y puede caer en la defensa: ¿qué número pondrías en un equipo de 4 y por qué?).
-- `enforce_admins: true`: la regla te aplica **también a vos**, que sos admin del repo. Sin esto, GitHub te dejaría saltear la protección — y una protección con bypass habilitado es de adorno.
+</details>
 
-(Equivalente por web: *Settings → Branches → Add branch protection rule* — es la misma feature que configura el comando, y ahí vas a ver reflejada la regla. **Ojo:** los *Rulesets* (Settings → Rules) son una feature distinta y más nueva de GitHub; si preferís usarlos, el análogo de `enforce_admins` es dejar la *bypass list* vacía. No mezcles las dos: elegí un mecanismo y verificá el checkpoint.)
+**✅ Checkpoint:** el push directo a `main` es rechazado por GitHub, y tenés la captura.
 
-- Verificá la protección intentando un push directo:
+### 4.5 Tu primer Pull Request (entero en la web)
 
-```bash
-echo "test" >> README.md
-git commit -am "test: intento de push directo"
-git push    # ← debe FALLAR con "protected branch"
-git reset --hard HEAD~1   # deshacemos el commit local
+Este es **el ciclo que vas a repetir toda la materia**. La primera vez lo hacemos entero en la web,
+porque ahí el Pull Request se ve como lo que es: un objeto con su conversación, sus commits y su
+diff.
+
+**Paso 1 — Editar el archivo.** En la página del repositorio, abrí `README.md` y tocá el **lápiz**
+(*Edit this file*). Agregale al final una sección de instalación:
+
+```markdown
+## Instalación
+
+git clone <url-del-repo>
 ```
 
-**✅ Checkpoint:** el push directo a `main` es rechazado por GitHub. Guardá la captura/salida — es evidencia para el TP.
+**Paso 2 — Intentar guardar.** Botón **Commit changes…**. Y acá pasa lo importante: como `main` está
+protegida, GitHub **no te deja commitear directo** y te ofrece otra cosa —
+***Create a new branch for this commit and start a pull request***. Elegila.
 
-### 4.5 Tu primer Pull Request, paso a paso (a prueba de errores)
+El nombre de la rama seguí la convención de la materia: `feature/<descripcion>` (ver §4.9).
+Ejemplo: `feature/seccion-instalacion`. Después, **Propose changes**.
 
-Este es **el ciclo que vas a repetir toda la materia**: rama → cambio → PR → merge. La primera vez lo hacemos con lupa, paso por paso, diciendo qué hace cada comando y qué tenés que ver en pantalla. Si en algún paso lo que ves no coincide, frená ahí y revisá — no sigas arrastrando el error.
+> 🧠 Pará un segundo acá: **la protección de `main` te empujó sola al camino correcto.** Eso es lo
+> que hace una regla bien puesta — no te grita, te desvía.
 
-> 🧠 **Antes de arrancar, un concepto que puede caer en la defensa:** en GitHub **el autor de un PR no puede aprobar su propio PR** — no es configurable: en la web las opciones *Approve* y *Request changes* aparecen deshabilitadas sobre un PR propio, y por API el intento devuelve `422 — Can not approve your own pull request`. Por eso en §4.4 configuramos la protección con **0 approvals obligatorias**: exige que todo entre por PR, pero te deja mergear los tuyos — el flujo completo, trabajando solo. En un equipo real ese número sería 1 o más. (En Azure DevOps, en cambio, la auto-aprobación **sí es configurable** — ver la tabla del punto 5. Mismo concepto, decisiones de plataforma distintas.)
+**Paso 3 — Crear el Pull Request.** GitHub te lleva a la pantalla de comparación. Verificá que diga
+`base: main ← compare: feature/seccion-instalacion`, poné un título claro y, en la descripción,
+**qué cambia y por qué**. Botón **Create pull request**.
 
-**Paso 0 — Pararte en `main` actualizado.** Toda rama nueva nace de `main` al día:
+El cuerpo del PR no es decorativo: es lo que leería un reviewer — y lo que vas a agradecer vos mismo
+dentro de tres meses.
 
-```bash
-git switch main    # te parás en main
-git pull           # traés lo último del remoto
-git status         # debe decir: "nothing to commit, working tree clean"
-```
+**Paso 4 — Mirar el PR.** Esta página va a ser tu casa toda la materia. Recorré las pestañas:
 
-**Paso 1 — Crear la rama de la feature.** El nombre sigue la convención que documentaste en `decisiones.md` (ej: `feature/<descripcion>`):
+- **Conversation**: la discusión y el historial de lo que fue pasando.
+- **Commits**: qué commits trae la rama.
+- **Files changed**: el **diff** — en verde lo que entra, en rojo lo que sale.
 
-```bash
-git switch -c feature/seccion-instalacion
-```
+Leé el diff entero con las preguntas de §3.6: ¿hace lo que dice el título? ¿se entiende? En un
+equipo, este es el momento en que otra persona te deja comentarios; trabajando solo, es tu última
+oportunidad de mirar el cambio con ojo crítico antes de que entre.
 
-`-c` = *create*: crea la rama Y te para en ella. Verificá con `git branch` — la rama con `*` es donde estás.
+**Paso 5 — Mergear.** Volvé a *Conversation* y apretá **Merge pull request**. La flechita `▾` al lado
+del botón te deja elegir el tipo de merge — usá **Squash and merge** (§3.4: un commit por PR, el
+historial de `main` queda legible). Confirmá, y después tocá **Delete branch**: la rama ya cumplió su
+función, y las ramas de feature son descartables, no mascotas.
 
-**Paso 2 — Hacer el cambio y commitearlo.** Editá `README.md` agregándole una sección de instalación (o el cambio que toque). Después:
-
-```bash
-git status                     # ves el archivo en rojo (modificado, sin stagear)
-git add README.md              # lo pasás a staging (ahora en verde)
-git commit -m "docs: agrega sección de instalación al README"
-```
-
-Mensajes descriptivos, en tiempo imperativo: el historial es documentación.
-
-**Paso 3 — Publicar la rama en GitHub:**
-
-```bash
-git push -u origin feature/seccion-instalacion
-```
-
-`-u` vincula tu rama local con la remota — solo hace falta la **primera vez** que pusheás cada rama; después alcanza con `git push`. Si te olvidás del `-u`, Git te muestra el error `no upstream branch` **junto con el comando exacto para arreglarlo**: copialo y listo.
-
-**Paso 4 — Abrir el Pull Request.** Por CLI:
-
-```bash
-gh pr create --title "Agrega sección de instalación" \
-             --body "Qué cambia y por qué."
-```
-
-El comando te imprime la **URL del PR** — abrila en el browser. (Equivalente por web: apenas pusheaste, la página del repo te muestra un banner amarillo *"feature/seccion-instalacion had recent pushes — Compare & pull request"*: ese botón abre el formulario del PR. Verificá que diga `base: main ← compare: feature/...`, completá título y descripción, y *Create pull request*.)
-
-El body del PR no es decorativo: **qué cambia y por qué** es lo que leería un reviewer — y lo que vas a agradecer vos mismo en 3 meses.
-
-**Paso 5 — Mirar el PR como lo miraría un reviewer.** En la página del PR, pestaña **Files changed**: ahí está el diff — verde lo que entra, rojo lo que sale. Leelo entero preguntándote lo de §3.6: ¿hace lo que dice el título? ¿es legible? Si ves algo mejorable, no lo arregles "en silencio": dejalo escrito como comentario (posá el mouse sobre la línea → botón azul `+` → escribí → *Add single comment*). En §4.6 esta auto-revisión se vuelve obligatoria.
-
-**Paso 6 — Mergear.** Por CLI (el número de PR te lo dijo `gh pr create`; también lo ves con `gh pr list`):
-
-```bash
-gh pr merge <numero> --squash --delete-branch
-```
-
-- `--squash` es **el tipo de merge**: usá el que documentaste en `decisiones.md` (`--merge` / `--squash` / `--rebase`).
-- `--delete-branch` borra la rama (remota y local) después del merge: la rama ya cumplió su función — las ramas de feature son descartables, no mascotas.
-
-(Equivalente por web: botón verde **Merge pull request** — la flechita `▾` al lado elige el tipo de merge — → *Confirm* → botón *Delete branch*.)
-
-**Paso 7 — Cerrar el ciclo localmente.** El merge ocurrió **en GitHub**; tu `main` local todavía no lo tiene:
+**Paso 6 — Traer el cambio a tu máquina.** El merge ocurrió **en GitHub**; tu copia local todavía no
+lo tiene:
 
 ```bash
 git switch main
-git pull                       # ahora sí: tu cambio está en main
-git log --oneline -3           # verificalo — ahí está el commit del merge
+git pull
+git log --oneline -3      # ahí está tu cambio
 ```
+
+Este paso se olvida siempre, y es la causa número uno del próximo conflicto tonto.
+
+<details>
+<summary>💻 Lo mismo por consola</summary>
+
+```bash
+git switch main && git pull
+git switch -c feature/seccion-instalacion   # -c = crear la rama y pararse en ella
+# ... editar el README ...
+git add README.md
+git commit -m "docs: agrega sección de instalación al README"
+git push -u origin feature/seccion-instalacion   # -u solo la primera vez de cada rama
+gh pr create --title "Agrega sección de instalación" --body "Qué cambia y por qué."
+gh pr diff <numero>                              # el diff, en la terminal
+gh pr merge <numero> --squash --delete-branch
+git switch main && git pull
+```
+</details>
 
 > 💥 **Errores típicos de la primera vez (ninguno es grave):**
-> - **`gh pr create` dice "No commits between main and tu-rama"** → te olvidaste de commitear (paso 2) o estás parado en `main`. `git status` y `git branch` te dicen cuál de los dos.
-> - **El PR muestra "0 files changed"** → mismo caso: el commit no está en la rama que pusheaste.
-> - **`git push` rechazado con "protected branch"** → estás intentando pushear a `main` directo. Bien: **la protección funciona**. Volvé al paso 1 y trabajá en una rama.
-> - **Hiciste un commit parado en `main` sin querer** → no pasa nada mientras no puedas pushearlo: `git switch -c feature/lo-que-sea` se lleva ese commit a una rama nueva, y después `git switch main && git reset --hard origin/main` deja tu `main` limpio.
-> - **Cerraste el PR en vez de mergearlo** (*Close* ≠ *Merge*) → reabrilo desde la página del PR (*Reopen*) — no se perdió nada.
+> - **El PR muestra "0 files changed"** → el commit quedó en otra rama, o no llegaste a commitear.
+> - **`git push` rechazado con "protected branch"** → estás pusheando a `main` directo. Bien: la
+>   protección funciona. Trabajá en una rama.
+> - **Hiciste un commit parado en `main` sin querer** → mientras no puedas pushearlo no pasa nada:
+>   `git switch -c feature/lo-que-sea` se lleva ese commit a una rama nueva, y después
+>   `git switch main && git reset --hard origin/main` te deja `main` limpio.
+> - **Cerraste el PR en vez de mergearlo** (*Close* ≠ *Merge*) → reabrilo con *Reopen*, no se perdió
+>   nada.
 
-**✅ Checkpoint:** 1 PR mergeado a `main` por el ciclo completo, y tu `main` local actualizado con ese cambio.
+**✅ Checkpoint:** 1 PR mergeado a `main`, la rama borrada, y tu `main` local actualizado.
 
-### 4.6 Segunda feature: el ciclo con self-review de verdad
+### 4.6 Provocar y resolver un conflicto
 
-Repetí el ciclo completo de §4.5 para una **segunda feature** (otra sección del README, un archivo nuevo — lo que sume). Esta vez, el paso 5 es obligatorio y con evidencia:
+Un conflicto no es un error: es lo que pasa cuando dos personas tocan la misma línea (§3.4). Como acá
+estás solo, vas a hacer de las dos personas — y lo fabricamos a propósito, porque es mucho mejor que
+tu primer conflicto sea en un entorno controlado y no en tu primer trabajo.
 
-1. Abrí **Files changed** y encontrá algo mejorable **de verdad** en tu propio diff: un typo, una frase confusa, algo que falta. Siempre hay algo — la consigna es encontrarlo antes de mergear, que es exactamente lo que hace un buen reviewer.
-2. Dejá **un comentario sobre esa línea** del PR diciendo qué cambiarías y por qué — como se lo escribirías a otra persona.
-3. **Resolvelo con un commit adicional** en la misma rama (`git add` + `git commit` + `git push` — el PR se actualiza solo).
-4. Marcá la conversación como **Resolved** en el PR, y recién ahí mergeá.
+**La receta: dos ramas que nacen de `main` y cambian la MISMA línea.**
 
-Eso que acabás de hacer — comentario, corrección, resolución — es exactamente la ronda de code review de un equipo real, con vos en los dos roles. El PR queda como evidencia: la conversación y el commit de corrección son parte de lo que se evalúa.
+**Rama A** — desde la web: editá el `README.md`, cambiá **la primera línea** por
+`# Proyecto IngSoft3 - versión A`, y **creá el PR** (rama `feature/titulo-a`) igual que en §4.5.
+🛑 **Pará ahí: NO lo mergees todavía.** Primero tenés que crear la rama B.
 
-**✅ Checkpoint:** 2 PRs mergeados a `main`, al menos uno con un comentario de review sobre una línea + commit de corrección + conversación resuelta.
+**Rama B** — igual, pero **partiendo otra vez de `main`**, sin enterarse de lo que hizo A: cambiá esa
+**misma** primera línea por `# Proyecto IngSoft3 - versión B` y creá el PR (`feature/titulo-b`).
 
-### 4.7 Provocar y resolver un conflicto
+> ⚠️ Este es el punto donde se arruina el ejercicio: si la rama B nace de la A, no hay conflicto.
+> Antes de crear B, asegurate de estar parado en `main`.
 
-Los conflictos no son un error: son la consecuencia normal de trabajo en paralelo. Acá vas a simular vos solo a las dos personas: dos ramas que tocan la misma línea. Vamos a fabricarlo a propósito:
+**Mergeá el PR de A.** Entró limpio.
 
-```bash
-# Rama A: modificar la línea 1 del README
-git switch main && git pull
-git switch -c feature/titulo-a
-# editar la línea 1 del README → "Proyecto IngSoft3 - versión A"
-git commit -am "docs: cambia título (versión A)" && git push -u origin feature/titulo-a
-gh pr create --fill
+**Ahora mirá el PR de B**: GitHub te avisa que **no se puede mergear automáticamente** porque hay
+conflictos.
 
-# Rama B (SIN partir de A): modificar la MISMA línea
-git switch main
-git switch -c feature/titulo-b
-# editar la línea 1 del README → "Proyecto IngSoft3 - versión B"
-git commit -am "docs: cambia título (versión B)" && git push -u origin feature/titulo-b
-gh pr create --fill
+📸 **SACÁ LA CAPTURA AHORA** — el aviso de conflicto en el PR.
+
+#### Resolverlo desde la web
+
+En el PR de B, tocá **Resolve conflicts**. Se abre un editor con el archivo y **los marcadores**:
+
+```
+<<<<<<< feature/titulo-b
+# Proyecto IngSoft3 - versión B
+=======
+# Proyecto IngSoft3 - versión A
+>>>>>>> main
 ```
 
-- Mergeá el PR de la rama A. El PR de la rama B ahora tiene conflicto.
-- Resolvelo localmente:
+Leelos con calma, porque es el corazón del ejercicio: arriba está **tu** versión, abajo la que ya
+está en `main`, y los símbolos `<<<<<<<`, `=======` y `>>>>>>>` son las fronteras.
+
+📸 **SACÁ LA CAPTURA AHORA** — los marcadores. Ojo: en el paso siguiente los vas a borrar y ya no
+vas a poder volver a capturarlos.
+
+**Resolver es decidir el contenido, no ejecutar un comando.** Elegí qué queda —una versión, la otra,
+o una combinación—, **borrá las tres líneas de marcadores** para que el archivo quede como si el
+conflicto nunca hubiera existido, y tocá **Mark as resolved** y después **Commit merge**.
+
+Ahora el PR de B se puede mergear. Hacelo.
+
+> 💡 Si GitHub no te deja mergear **inmediatamente** después de resolver, esperá unos segundos: está
+> recalculando el estado. No es que tu resolución esté mal.
+
+<details>
+<summary>💻 Lo mismo por consola</summary>
+
+GitHub resuelve en la web los conflictos simples como este. Cuando son grandes, el editor web no
+alcanza y se resuelve en tu máquina — así se hace:
 
 ```bash
-git switch feature/titulo-b
-git fetch origin
-git merge origin/main        # ← acá aparece el conflicto
-# abrir el archivo, resolver los marcadores <<<<<<< ======= >>>>>>>
+git fetch origin                    # primero traés las ramas que creaste en la web
+git switch feature/titulo-b         # ahora sí existe localmente
+git merge origin/main               # ← acá aparece el conflicto
+
+# abrí el README.md en tu editor: vas a ver los mismos marcadores.
+# Editalo, dejá el contenido final y borrá los marcadores. Después:
+
 git add README.md
-git commit                   # commit de merge
+git commit -m "fix: resuelve conflicto de título tomando la versión B"
 git push
 ```
 
-- Ahora el PR de B se puede mergear.
+⚠️ Si hacés `git commit` **sin** `-m`, Git te abre el editor de texto de la terminal (normalmente
+`vim`) para que escribas el mensaje. Si te pasa y no sabés cómo salir: apretá `Esc`, escribí `:wq` y
+Enter.
 
-> 💡 **Dos gotchas verificados en la práctica:**
-> 1. Los nombres junto a los marcadores dependen de **dónde estés parado**: `HEAD` es siempre TU rama actual. Como acá resolvés parado en `feature/titulo-b`, vas a ver tu versión bajo `HEAD` y la de `main` bajo `origin/main`.
-> 2. Si intentás mergear el PR **inmediatamente** después de pushear la resolución, GitHub puede rechazarlo porque todavía no recalculó el estado del conflicto. Esperá unos segundos y reintentá — no es que tu resolución esté mal.
+Un detalle del que se aprende: los nombres al lado de los marcadores dependen de **dónde estés
+parado**. `HEAD` siempre es tu rama actual.
+</details>
 
-**✅ Checkpoint:** captura del conflicto (los marcadores en el archivo) y del PR de B mergeado después de resolverlo. Explicá en `decisiones.md` cómo lo resolviste y con qué criterio elegiste qué versión quedaba.
+**✅ Checkpoint:** el PR de B mergeado después de resolver el conflicto, con las dos capturas (el
+aviso y los marcadores).
 
-### 4.8 Tags y releases (versionado semántico)
+### 4.7 Versionar la entrega: tag y release
+
+Un **tag** marca un commit con un nombre inmutable; una **release** le agrega comunicación (§3.7).
+
+El tag se crea desde tu máquina:
 
 ```bash
 git switch main && git pull
 git tag -a v1.0.0 -m "Primera versión estable del TP"
 git push origin v1.0.0
-
-gh release create v1.0.0 --title "v1.0.0" \
-  --notes "Primera release: estrategia de branching, protecciones, 4 PRs mergeados."
 ```
 
-**Semver en 30 segundos:** `MAJOR.MINOR.PATCH` → rompés compatibilidad = MAJOR; agregás funcionalidad compatible = MINOR; arreglás un bug = PATCH.
+Y la release se publica desde la web, que es donde se ve para qué sirve:
 
-**✅ Checkpoint:** la release `v1.0.0` es visible en la página del repo.
+1. En el repositorio: **Releases → Draft a new release** (o *Create a new release*).
+2. **Choose a tag**: elegí el `v1.0.0` que acabás de subir.
+3. **Release title**: `v1.0.0`
+4. **Describe this release**: qué incluye esta versión — escrito para humanos, no para máquinas.
+5. **Publish release**.
+
+📸 **SACÁ LA CAPTURA AHORA** — la release publicada.
+
+**Semver en 30 segundos:** `MAJOR.MINOR.PATCH` → rompés compatibilidad = MAJOR; agregás
+funcionalidad compatible = MINOR; arreglás un bug = PATCH.
+
+<details>
+<summary>💻 Lo mismo por consola</summary>
+
+```bash
+gh release create v1.0.0 --title "v1.0.0" \
+  --notes "Primera release: protecciones de rama, el flujo de Pull Requests funcionando y un conflicto resuelto."
+```
+</details>
+
+**✅ Checkpoint:** la release `v1.0.0` se ve en la página del repositorio.
+
+### 4.8 Los dos archivos que se entregan
+
+El TP no se entrega como un zip: **se entrega tu repositorio**. Y adentro tienen que estar estos dos
+archivos, en la raíz.
+
+**`evidencias.md`** — las cuatro capturas marcadas 📸 en esta guía, cada una con una línea que diga
+qué se está viendo:
+
+```markdown
+# Evidencias — TP1
+
+## 1. Push directo a main rechazado
+![push rechazado](img/push-rechazado.png)
+GitHub rechaza el push porque main está protegida y la regla alcanza también al dueño del repo.
+
+## 2. El PR de la rama B no se puede mergear: conflicto
+...
+```
+
+**`decisiones.md`** — tres cosas, cortas y honestas:
+
+1. **Cómo resolviste el conflicto** y con qué criterio elegiste qué versión quedaba.
+2. **Qué problemas encontraste** y cómo los solucionaste. Los tropiezos bien contados valen más que
+   un camino perfecto: son los que demuestran que entendiste.
+3. **Declaración de uso de IA**: qué partes hiciste con ayuda de inteligencia artificial y cómo
+   verificaste lo que te devolvió (§ *Uso de IA* del enunciado).
+
+> 💡 Estos dos archivos también son cambios al repositorio — así que entran por **Pull Request**,
+> como todo lo demás. A esta altura el ciclo ya te tiene que salir sin mirar la guía: ese es,
+> justamente, el punto del TP.
+
+**✅ Checkpoint:** `decisiones.md` y `evidencias.md` están en `main`, y llegaron ahí por un PR.
+
+### 4.9 Dos cosas más que conviene saber
+
+**La convención de nombres de rama.** En esta materia usamos `feature/<descripcion>` para
+funcionalidad nueva y `fix/<descripcion>` para correcciones. No es la única convención posible: es la
+que vamos a usar para que todos los repos se lean igual. En el TP4, cuando ya tengas el flujo
+funcionando, vas a poder discutir y justificar la tuya.
+
+**Esto mismo se hace desde tu editor.** Visual Studio Code —y cualquier editor moderno— trae
+integración con Git y con GitHub: podés crear ramas, ver el diff, commitear, pushear, resolver
+conflictos con una vista lado a lado, y hasta abrir Pull Requests, sin salir del editor. Es como
+trabaja la mayoría de la industria. Lo dejamos para el final a propósito: **primero conviene entender
+qué está haciendo el botón**, y después usar el que te ahorre tiempo. Si querés probarlo, mirá la
+extensión *GitHub Pull Requests* de VS Code.
 
 ---
 
@@ -456,7 +664,7 @@ Si elegís el riel Azure, los **conceptos y checkpoints son idénticos** — cam
 | CLI | `gh` | `az devops` / `az repos` (extensión Azure DevOps de Azure CLI) |
 | Cuenta necesaria | GitHub gratis, sin tarjeta | Azure DevOps gratis hasta 5 usuarios, sin tarjeta (no requiere subscription de Azure) |
 
-**Checkpoints riel Azure:** los mismos de la guía (auth ok → repo creado → estrategia documentada → push directo rechazado → 2 PRs por el ciclo completo, uno con self-review → conflicto resuelto → tag + changelog).
+**Checkpoints riel Azure:** los mismos de la guía (repo creado → primer commit → push directo rechazado → 2 PRs → conflicto resuelto → tag + changelog).
 
 > 📌 Este TP **no necesita nube ni tarjeta en ningún riel**: tanto GitHub como Azure DevOps son gratis para esto.
 
@@ -469,54 +677,74 @@ Si elegís el riel Azure, los **conceptos y checkpoints son idénticos** — cam
 
 ## 🎯 Objetivo
 
-Diseñar, implementar y **defender** el flujo de trabajo Git de un equipo de desarrollo: estrategia de branching, code review por Pull Requests, protecciones de rama y versionado de entregas.
+Poner a funcionar —y **defender**— el flujo de trabajo con el que un equipo integra código: ramas,
+Pull Requests, revisión, protecciones sobre `main` y versionado de la entrega.
 
-Este trabajo se aprueba **solo si podés explicar qué hiciste, por qué lo hiciste y cómo lo resolviste**.
+Este trabajo se aprueba **solo si podés explicar qué hiciste, por qué pasa lo que pasa, y cómo lo
+resolviste**.
 
 ## 🧩 Escenario
 
-Sos el líder técnico de un equipo que arranca un proyecto nuevo. Antes de escribir la primera línea de código de producción, tenés que dejar definido y funcionando el flujo de trabajo: cómo se nombra y se ramifica, cómo entra el código a `main`, qué se revisa antes de mergear, y cómo se versionan las entregas. El TP es individual: vos mismo vas a operar bajo esas reglas — y demostrar que el flujo funciona de punta a punta.
+Arrancás un proyecto nuevo y, antes de escribir la primera línea de código de producción, dejás
+funcionando el flujo de trabajo: cómo entra el código a `main`, qué se revisa antes de integrarlo, y
+cómo se versiona lo que se entrega. El TP es individual: los tres roles de un equipo —el que escribe,
+el que revisa y el que administra el repositorio— los vas a ocupar vos.
 
 ## 📋 Tareas que debés cumplir
 
-### 1. Repositorio y estrategia
+### 1. Repositorio
 - Repositorio **público** en la plataforma elegida (GitHub, Azure Repos u otra).
-- Estrategia de branching elegida y **justificada** en `decisiones.md` (incluí: por qué esa y no las otras dos, y la convención de nombres de ramas).
 - `.gitignore` acorde al stack.
 
-### 2. Protecciones y code review
-- `main` protegida: **imposible pushear directo** (incluso siendo admin — sin bypass); todo cambio entra por Pull Request.
-- Al menos **3 PRs mergeados**, de los cuales:
-  - al menos 1 con una **ronda de self-review** (comentario de revisión sobre una línea de tu propio PR + commit de corrección + conversación resuelta antes del merge),
-  - al menos 1 que haya requerido **resolver un conflicto de merge**.
-- Tipo de merge (merge/squash/rebase) elegido y justificado.
+### 2. Protecciones
+- `main` protegida: **imposible pushear directo** — ni siquiera para vos, que sos el administrador
+  (sin bypass). Todo cambio entra por Pull Request.
+- **Evidencia del rechazo**: la salida del intento de push directo a `main`.
 
-### 3. Versionado
-- Tag `v1.0.0` (semver) sobre `main` con release/changelog con notas de qué incluye.
+### 3. Pull Requests
+Al menos **2 PRs mergeados**, y uno de ellos tiene que haber requerido **resolver un conflicto de
+merge** (lo fabricás a propósito, §4.6).
+
+Todo cambio al repositorio entra por PR — incluidos los dos archivos de la entrega. Así que los PRs
+te van a salir solos: lo que se evalúa es que el historial muestre el flujo funcionando.
+
+### 4. Versionado
+- Tag `v1.0.0` (semver) sobre `main`, con su **release** publicada y notas de qué incluye.
+
+> 📌 La estrategia de branching (GitHub Flow), la convención de nombres de rama y el tipo de merge
+> **te los damos** en esta guía: son las reglas de la materia, y todavía no tenés la experiencia para
+> elegirlas con criterio. En el **TP4**, con el flujo ya funcionando y un pipeline encima, vas a
+> tener que elegir y justificar la tuya.
 
 ## 📄 Entregables
 
-1. **URL del repositorio público** con todo el historial: ramas, PRs con sus conversaciones, conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link está en el aula virtual y se comparte en clase).
-2. **`decisiones.md`** en la raíz del repo explicando:
-   - Estrategia de branching elegida y justificación.
-   - Tipo de merge elegido y justificación.
-   - Cómo resolviste el conflicto y con qué criterio.
-   - Problemas encontrados y cómo los solucionaste.
-3. **`evidencias.md`** (también en la raíz del repo) con capturas/links de: push directo rechazado, PR con la ronda de self-review (comentario + commit de corrección), conflicto (marcadores visibles) y su resolución, release publicada.
+1. **URL del repositorio público** con todo el historial: ramas, PRs con sus conversaciones,
+   conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link está en el
+   aula virtual y se comparte en clase).
+2. **`decisiones.md`** en la raíz del repositorio, con tres cosas:
+   - **Cómo resolviste el conflicto y con qué criterio** elegiste qué versión quedaba.
+   - **Qué problemas encontraste y cómo los solucionaste** (los errores contados con honestidad valen
+     más que un camino perfecto).
+   - **Declaración de uso de IA**: qué partes hiciste con ayuda de inteligencia artificial y cómo
+     verificaste lo que te devolvió.
+3. **`evidencias.md`** (también en la raíz) con las cuatro capturas marcadas 📸 en la guía: el push
+   directo rechazado, el aviso de conflicto en el PR, los marcadores del conflicto, y la release
+   publicada.
 
 ## 🗣️ Defensa Oral Obligatoria
 
-Se realiza en **P1 (clase 5)**, junto con la defensa de los TPs 2 a 4. Vas a mostrar tu trabajo y responder preguntas como:
-- ¿Por qué elegiste esa estrategia de branching? ¿Cuándo NO la usarías?
-- ¿Qué relación hay entre el tamaño/duración de las ramas y las métricas DORA? ¿Por qué "ir más rápido" no implica "romper más"?
-- ¿Qué es la staging area y por qué existe? ¿Qué es una rama *realmente* para Git?
-- ¿Qué diferencia hay entre merge, squash y rebase? ¿Qué perdés y qué ganás con cada uno?
-- ¿Qué pasa si dos personas modifican la misma línea? Mostrame cómo lo resolviste.
-- ¿Para qué sirve proteger `main` si el equipo "se tiene confianza"?
-- ¿Podés aprobar tu propio PR en GitHub? ¿Y en Azure DevOps? ¿Por qué tu protección pide 0 approvals, y qué número pondrías en un equipo real?
-- ¿Podés mergear sin cumplir la protección siendo admin? ¿Cómo lo evitaste en tu repo?
-- En tu PR con self-review: ¿qué comentaste, por qué, y cómo lo resolviste?
-- ¿Qué significa el número de versión que elegiste para tu tag?
+Se realiza en **P1 (clase 5)**, junto con la defensa de los TPs 2 a 4. Vas a mostrar tu repositorio
+navegando en vivo y responder preguntas como:
+
+- ¿Para qué sirve proteger `main` si en el equipo "se tienen confianza"? ¿Qué pasó cuando intentaste
+  pushear directo?
+- ¿Qué es una rama *realmente* para Git? ¿Y por qué el merge que hiciste en GitHub no aparecía en tu
+  máquina hasta que hiciste `pull`?
+- ¿Qué pasa cuando dos personas modifican la misma línea? Mostrame tu conflicto y contame con qué
+  criterio elegiste qué quedaba.
+- El code review es la práctica central de un equipo (§3.6) y en este TP trabajaste solo:
+  ¿qué buscarías vos en el Pull Request de un compañero, y qué NO discutirías nunca en una revisión?
+- ¿Qué significa el número de versión que le pusiste al tag?
 
 ## ✅ Evaluación
 
@@ -526,7 +754,7 @@ Se realiza en **P1 (clase 5)**, junto con la defensa de los TPs 2 a 4. Vas a mos
 | Claridad y justificación en `decisiones.md` + `evidencias.md` | 25% |
 | Defensa oral: comprensión y argumentación | 50% |
 
-> ⚖️ Peso orientativo de este TP en la nota de **P1**: **20%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
+> ⚖️ Peso orientativo de este TP en la nota de **P1**: **5%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
 
 ## ⚠️ Uso de IA
 

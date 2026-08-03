@@ -69,13 +69,13 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
 
   | P1 | TP1 Git | TP2 Docker | TP3 Planificación | TP4 CI |
   |---|---|---|---|---|
-  | Peso | 20% | 30% | 15% | 35% |
+  | Peso | 5% | 35% | 20% | 40% |
 
   | P2 | TP5 Testing | TP6 CD | TP7 Contenedores + e2e | TP8 IaC | TP9 DevSecOps |
   |---|---|---|---|---|---|
   | Peso | 20% | 25% | 25% | 15% | 15% |
 - **Aprobación y regularidad**: cada presentación se aprueba con **nota ≥ 4** (escala 1–10). Para **regularizar** necesitás **las dos presentaciones aprobadas**.
-- **Recuperatorio (clase 12): la red es una sola.** Si una presentación quedó abajo de 4, en la clase 12 volvés a presentar **ese bloque completo** — los TPs 1–4 o los 5–9, según cuál haya sido. Si **las dos** quedaron abajo de 4, la materia queda **libre** (la recursás) — y lo mismo si vas al recuperatorio y tampoco lo aprobás. Ante la duda, avisá temprano y lo acomodamos en el momento, no en la clase 12.
+- **Recuperatorio (clase 12): es tu única segunda oportunidad, y alcanza para un solo bloque.** Si una presentación quedó abajo de 4, en la clase 12 volvés a presentar **ese bloque completo** — los TPs 1–4 o los 5–9, según cuál haya sido. Si **las dos** quedaron abajo de 4, la materia queda **libre** (la recursás) — y lo mismo si vas al recuperatorio y tampoco lo aprobás. Ante la duda, avisá temprano y lo acomodamos en el momento, no en la clase 12.
 
 ### El Integrador
 Condición para **rendir el final**. Es tu app del semestre con la cadena completa — el enunciado se publica en `trabajos/` durante la cursada. Se valida **en vivo** en la mesa.
