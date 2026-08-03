@@ -85,7 +85,7 @@ La IA es una herramienta de productividad, no un reemplazo del entendimiento. Co
 
 ## 7. Trabajo en equipo y honestidad
 
-- Los TPs se trabajan **de a dos** (tu compañero es tu reviewer desde el TP1 y tu aprobador de producción desde el TP6). La **defensa es individual**: los dos deben poder defender todo.
+- Los TPs son **individuales**: tu repo, tus decisiones, tu defensa. Los mecanismos de colaboración de un equipo real (PRs, revisiones, aprobaciones de deploy) los operás vos mismo sobre tu repo — lo que se evalúa es que entiendas y puedas defender el flujo. Ayudarse entre compañeros está muy bien; entregar el trabajo de otro, no (ver el punto siguiente).
 - El trabajo es de ustedes. Repos clonados de otros equipos, historiales fabricados o evidencias ajenas son plagio y se tratan según el reglamento de la universidad. (El historial de Git cuenta la historia real — y lo sabemos leer.)
 - Los secretos jamás se commitean (lo vas a aprender en capas, TP a TP). Si filtrás una credencial real: **rotala ya** y contalo en `decisiones.md` — manejar bien un incidente también es aprendizaje.
 

@@ -253,7 +253,7 @@ git push
 
 ### 4.4 Proteger `main`
 
-Ahora hacemos que **nadie pueda pushear directo a `main`**: todo entra por PR con al menos 1 review aprobada.
+Ahora hacemos que **nadie pueda pushear directo a `main`** (ni siquiera vos): todo cambio entra por Pull Request.
 
 Por CLI (la API de branch protection):
 
@@ -261,13 +261,18 @@ Por CLI (la API de branch protection):
 gh api --method PUT "repos/{owner}/{repo}/branches/main/protection" \
   --input - <<'EOF'
 {
-  "required_pull_request_reviews": { "required_approving_review_count": 1 },
+  "required_pull_request_reviews": { "required_approving_review_count": 0 },
   "required_status_checks": null,
   "enforce_admins": true,
   "restrictions": null
 }
 EOF
 ```
+
+Qué configura cada línea:
+
+- `required_pull_request_reviews` con `required_approving_review_count: 0`: **todo cambio tiene que entrar por PR**, pero sin approvals obligatorias de otra persona — este TP es individual, así que vas a poder mergear tus propios PRs. En un equipo real acá iría `1` o más (lo viste en §3.6, y puede caer en la defensa: ¿qué número pondrías en un equipo de 4 y por qué?).
+- `enforce_admins: true`: la regla te aplica **también a vos**, que sos admin del repo. Sin esto, GitHub te dejaría saltear la protección — y una protección con bypass habilitado es de adorno.
 
 (Equivalente por web: *Settings → Branches → Add branch protection rule* — es la misma feature que configura el comando, y ahí vas a ver reflejada la regla. **Ojo:** los *Rulesets* (Settings → Rules) son una feature distinta y más nueva de GitHub; si preferís usarlos, el análogo de `enforce_admins` es dejar la *bypass list* vacía. No mezcles las dos: elegí un mecanismo y verificá el checkpoint.)
 
@@ -282,83 +287,103 @@ git reset --hard HEAD~1   # deshacemos el commit local
 
 **✅ Checkpoint:** el push directo a `main` es rechazado por GitHub. Guardá la captura/salida — es evidencia para el TP.
 
-### 4.5 Reviewers: trabajo cruzado con un compañero
+### 4.5 Tu primer Pull Request, paso a paso (a prueba de errores)
 
-En GitHub **el autor de un PR no puede aprobar su propio PR** — y esto no es configurable:
+Este es **el ciclo que vas a repetir toda la materia**: rama → cambio → PR → merge. La primera vez lo hacemos con lupa, paso por paso, diciendo qué hace cada comando y qué tenés que ver en pantalla. Si en algún paso lo que ves no coincide, frená ahí y revisá — no sigas arrastrando el error.
 
-- En la interfaz web, al abrir el diálogo de review sobre un PR propio, las opciones *Approve* y *Request changes* aparecen **deshabilitadas**: solo podés comentar.
-- Por API el intento devuelve un error explícito: `422 — Can not approve your own pull request` (con la CLI `gh` vas a ver el mismo mensaje, sin el código numérico: `failed to create review: GraphQL: Review Can not approve your own pull request`).
+> 🧠 **Antes de arrancar, un concepto que puede caer en la defensa:** en GitHub **el autor de un PR no puede aprobar su propio PR** — no es configurable: en la web las opciones *Approve* y *Request changes* aparecen deshabilitadas sobre un PR propio, y por API el intento devuelve `422 — Can not approve your own pull request`. Por eso en §4.4 configuramos la protección con **0 approvals obligatorias**: exige que todo entre por PR, pero te deja mergear los tuyos — el flujo completo, trabajando solo. En un equipo real ese número sería 1 o más. (En Azure DevOps, en cambio, la auto-aprobación **sí es configurable** — ver la tabla del punto 5. Mismo concepto, decisiones de plataforma distintas.)
 
-**⚠️ Tres matices importantes que tenés que entender (y que pueden caer en la defensa oral):**
-
-1. **No poder aprobar ≠ no poder mergear.** Si sos admin del repo y la protección permite bypass, GitHub te ofrece igual el botón *"Merge without waiting for requirements to be met"* aunque falte la approval. Por eso en el paso 4.4 configuramos `enforce_admins: true`: con eso ni el dueño del repo puede saltearse la regla. **Una entrega con bypass habilitado tiene la protección de adorno.**
-2. **La restricción es evadible con una segunda cuenta** (auto-aprobarte con un usuario "títere" — que además viola los Términos de Servicio de GitHub: una cuenta gratuita por persona). Por eso el TP exige review cruzada con un compañero real: el control que de verdad no se puede trampear es que en la defensa oral se le puede preguntar al reviewer **qué revisó y por qué aprobó**.
-3. **En Azure DevOps esto funciona distinto**: la auto-aprobación **sí es configurable** (ver tabla de equivalencias del punto 5). Es un buen ejemplo de que el concepto es el mismo pero cada plataforma toma decisiones distintas por defecto.
-
-Así que necesitás un reviewer real:
-
-- Coordiná con un compañero de la materia: cada uno invita al otro como *collaborator* a su repo.
+**Paso 0 — Pararte en `main` actualizado.** Toda rama nueva nace de `main` al día:
 
 ```bash
-gh api --method PUT "repos/{owner}/{repo}/collaborators/<usuario_del_companiero>" -f permission=push
+git switch main    # te parás en main
+git pull           # traés lo último del remoto
+git status         # debe decir: "nothing to commit, working tree clean"
 ```
 
-- (Opcional pero recomendado) Definí un archivo `CODEOWNERS` para que ese compañero sea reviewer automático:
+**Paso 1 — Crear la rama de la feature.** El nombre sigue la convención que documentaste en `decisiones.md` (ej: `feature/<descripcion>`):
 
 ```bash
-mkdir -p .github
-echo "* @<usuario_del_companiero>" > .github/CODEOWNERS
-```
-
-**✅ Checkpoint:** tu compañero aceptó la invitación y aparece en *Settings → Collaborators*.
-
-**📬 Instrucciones para tu reviewer (pasáselas tal cual):**
-
-1. **Aceptar la invitación**: te llega por mail, o entrá a https://github.com/notifications (o directo a `github.com/<owner>/<repo>/invitations`).
-2. **Revisar un PR desde la web (recomendado — no necesitás clonar nada)**: pestaña *Pull requests* → abrir el PR → *Files changed* → comentar sobre las líneas → botón *Review changes* → *Comment* / *Request changes* / *Approve*.
-3. **Por CLI, desde cualquier carpeta** (sin clonar el repo, gracias al flag `-R`):
-```bash
-gh pr review <numero> --approve -R <owner>/<repo>
-gh pr review <numero> --request-changes -b "comentario" -R <owner>/<repo>
-```
-
-**⏱ Acuerdo de trabajo con tu compañero (definilo el día 1):**
-- SLA sugerido: reviews dentro de las **24 hs** — un PR esperando approve te bloquea todo lo demás.
-- El trabajo es **de ida y vuelta**: revisar los PRs de tu compañero es parte de TU trabajo, y en la defensa oral te van a preguntar **qué revisaste en el repo de él**.
-- **Plan B si tu compañero desaparece**: conseguí otro reviewer del curso (invitalo como collaborator igual que al primero) y avisá a la cátedra **antes** de la fecha de entrega. Quedarte bloqueado esperando un approve no es excusa válida el día de la defensa.
-
-### 4.6 Feature por Pull Request (el ciclo completo)
-
-```bash
-# 1. Rama de feature
 git switch -c feature/seccion-instalacion
+```
 
-# 2. Trabajo + commits (mensajes descriptivos, en tiempo imperativo)
-#    ... editar README.md agregando una sección ...
-git add README.md
+`-c` = *create*: crea la rama Y te para en ella. Verificá con `git branch` — la rama con `*` es donde estás.
+
+**Paso 2 — Hacer el cambio y commitearlo.** Editá `README.md` agregándole una sección de instalación (o el cambio que toque). Después:
+
+```bash
+git status                     # ves el archivo en rojo (modificado, sin stagear)
+git add README.md              # lo pasás a staging (ahora en verde)
 git commit -m "docs: agrega sección de instalación al README"
-git push -u origin feature/seccion-instalacion
+```
 
-# 3. Crear el PR
+Mensajes descriptivos, en tiempo imperativo: el historial es documentación.
+
+**Paso 3 — Publicar la rama en GitHub:**
+
+```bash
+git push -u origin feature/seccion-instalacion
+```
+
+`-u` vincula tu rama local con la remota — solo hace falta la **primera vez** que pusheás cada rama; después alcanza con `git push`. Si te olvidás del `-u`, Git te muestra el error `no upstream branch` **junto con el comando exacto para arreglarlo**: copialo y listo.
+
+**Paso 4 — Abrir el Pull Request.** Por CLI:
+
+```bash
 gh pr create --title "Agrega sección de instalación" \
              --body "Qué cambia y por qué."
+```
 
-# 4. El compañero revisa: comenta y aprueba (ver "Instrucciones para tu reviewer" en §4.5
-#    — desde la web es lo más simple; por CLI usa el flag -R para no tener que clonar)
+El comando te imprime la **URL del PR** — abrila en el browser. (Equivalente por web: apenas pusheaste, la página del repo te muestra un banner amarillo *"feature/seccion-instalacion had recent pushes — Compare & pull request"*: ese botón abre el formulario del PR. Verificá que diga `base: main ← compare: feature/...`, completá título y descripción, y *Create pull request*.)
 
-# 5. Merge (elegí el tipo según lo que documentaste en decisiones.md)
+El body del PR no es decorativo: **qué cambia y por qué** es lo que leería un reviewer — y lo que vas a agradecer vos mismo en 3 meses.
+
+**Paso 5 — Mirar el PR como lo miraría un reviewer.** En la página del PR, pestaña **Files changed**: ahí está el diff — verde lo que entra, rojo lo que sale. Leelo entero preguntándote lo de §3.6: ¿hace lo que dice el título? ¿es legible? Si ves algo mejorable, no lo arregles "en silencio": dejalo escrito como comentario (posá el mouse sobre la línea → botón azul `+` → escribí → *Add single comment*). En §4.6 esta auto-revisión se vuelve obligatoria.
+
+**Paso 6 — Mergear.** Por CLI (el número de PR te lo dijo `gh pr create`; también lo ves con `gh pr list`):
+
+```bash
 gh pr merge <numero> --squash --delete-branch
 ```
 
-- Repetí el ciclo para una **segunda feature**. En al menos un PR, el reviewer tiene que dejar **un comentario de cambio pedido** que vos resuelvas con un commit adicional antes del approve (eso es code review de verdad, no un approve automático).
+- `--squash` es **el tipo de merge**: usá el que documentaste en `decisiones.md` (`--merge` / `--squash` / `--rebase`).
+- `--delete-branch` borra la rama (remota y local) después del merge: la rama ya cumplió su función — las ramas de feature son descartables, no mascotas.
 
-**✅ Checkpoint:** 2 PRs mergeados a `main`, al menos uno con una ronda de cambios pedidos y resueltos.
+(Equivalente por web: botón verde **Merge pull request** — la flechita `▾` al lado elige el tipo de merge — → *Confirm* → botón *Delete branch*.)
+
+**Paso 7 — Cerrar el ciclo localmente.** El merge ocurrió **en GitHub**; tu `main` local todavía no lo tiene:
+
+```bash
+git switch main
+git pull                       # ahora sí: tu cambio está en main
+git log --oneline -3           # verificalo — ahí está el commit del merge
+```
+
+> 💥 **Errores típicos de la primera vez (ninguno es grave):**
+> - **`gh pr create` dice "No commits between main and tu-rama"** → te olvidaste de commitear (paso 2) o estás parado en `main`. `git status` y `git branch` te dicen cuál de los dos.
+> - **El PR muestra "0 files changed"** → mismo caso: el commit no está en la rama que pusheaste.
+> - **`git push` rechazado con "protected branch"** → estás intentando pushear a `main` directo. Bien: **la protección funciona**. Volvé al paso 1 y trabajá en una rama.
+> - **Hiciste un commit parado en `main` sin querer** → no pasa nada mientras no puedas pushearlo: `git switch -c feature/lo-que-sea` se lleva ese commit a una rama nueva, y después `git switch main && git reset --hard origin/main` deja tu `main` limpio.
+> - **Cerraste el PR en vez de mergearlo** (*Close* ≠ *Merge*) → reabrilo desde la página del PR (*Reopen*) — no se perdió nada.
+
+**✅ Checkpoint:** 1 PR mergeado a `main` por el ciclo completo, y tu `main` local actualizado con ese cambio.
+
+### 4.6 Segunda feature: el ciclo con self-review de verdad
+
+Repetí el ciclo completo de §4.5 para una **segunda feature** (otra sección del README, un archivo nuevo — lo que sume). Esta vez, el paso 5 es obligatorio y con evidencia:
+
+1. Abrí **Files changed** y encontrá algo mejorable **de verdad** en tu propio diff: un typo, una frase confusa, algo que falta. Siempre hay algo — la consigna es encontrarlo antes de mergear, que es exactamente lo que hace un buen reviewer.
+2. Dejá **un comentario sobre esa línea** del PR diciendo qué cambiarías y por qué — como se lo escribirías a otra persona.
+3. **Resolvelo con un commit adicional** en la misma rama (`git add` + `git commit` + `git push` — el PR se actualiza solo).
+4. Marcá la conversación como **Resolved** en el PR, y recién ahí mergeá.
+
+Eso que acabás de hacer — comentario, corrección, resolución — es exactamente la ronda de code review de un equipo real, con vos en los dos roles. El PR queda como evidencia: la conversación y el commit de corrección son parte de lo que se evalúa.
+
+**✅ Checkpoint:** 2 PRs mergeados a `main`, al menos uno con un comentario de review sobre una línea + commit de corrección + conversación resuelta.
 
 ### 4.7 Provocar y resolver un conflicto
 
-Los conflictos no son un error: son la consecuencia normal de trabajo en paralelo. Vamos a fabricar uno a propósito:
-
-> ⚠️ Recordá: con `main` protegida, **cada merge de esta sección también necesita el approve de tu compañero**. Avisale antes de arrancar este ejercicio así no quedás esperando.
+Los conflictos no son un error: son la consecuencia normal de trabajo en paralelo. Acá vas a simular vos solo a las dos personas: dos ramas que tocan la misma línea. Vamos a fabricarlo a propósito:
 
 ```bash
 # Rama A: modificar la línea 1 del README
@@ -422,17 +447,16 @@ Si elegís el riel Azure, los **conceptos y checkpoints son idénticos** — cam
 |---|---|---|
 | Repositorio | Repo en tu cuenta (`gh repo create`) | Proyecto → Azure Repos (`az repos create`) |
 | Protección de `main` | Branch ruleset / branch protection | **Branch policies** sobre `main` (Repos → Branches → ⋮ → Branch policies) |
-| Review mínima | `required_approving_review_count: 1` | Policy "Minimum number of reviewers = 1" |
+| PR obligatorio sin approvals (trabajo individual) | `required_approving_review_count: 0` (paso 4.4) | Policy "Minimum number of reviewers = 1" + checkbox *"Allow requestors to approve their own changes"* **activado** (Azure no tiene "0 reviewers": el mínimo es 1, pero con ese checkbox podés aprobarte y mergear solo) |
 | Prohibir push directo | Efecto de la protección | Efecto automático de tener cualquier policy activa |
-| Reviewer automático | `CODEOWNERS` | Policy "Automatically included reviewers" |
 | Pull Request | `gh pr create / review / merge` | `az repos pr create` o web; tipos de merge equivalentes (merge/squash/rebase/semi-linear) |
-| Aprobar tu propio PR | **Prohibido siempre, no configurable** (UI deshabilitada; API devuelve `422 Can not approve your own pull request`) | **Configurable**: la policy "Minimum number of reviewers" tiene el checkbox *"Allow requestors to approve their own changes"* — dejalo **desactivado**, y activá además *"Prohibit the most recent pusher from approving their own changes"* |
+| Aprobar tu propio PR | **Prohibido siempre, no configurable** (UI deshabilitada; API devuelve `422 Can not approve your own pull request`) — por eso este TP usa 0 approvals | **Configurable**: el checkbox *"Allow requestors to approve their own changes"* de la policy de reviewers — acá lo activás para trabajar solo; en un equipo real va desactivado |
 | Saltearse la protección siendo admin | Posible salvo que actives `enforce_admins` / ruleset sin bypass — **activalo** (paso 4.4) | Posible con permiso "Bypass policies" — no lo uses en este TP |
 | Release | `gh release create` (releases de GitHub) | Tags de Git (`git tag`); no existe el concepto "release page" — documentá las notas en un `CHANGELOG.md` |
 | CLI | `gh` | `az devops` / `az repos` (extensión Azure DevOps de Azure CLI) |
 | Cuenta necesaria | GitHub gratis, sin tarjeta | Azure DevOps gratis hasta 5 usuarios, sin tarjeta (no requiere subscription de Azure) |
 
-**Checkpoints riel Azure:** los mismos 8 de la guía (auth ok → repo creado → estrategia documentada → push directo rechazado → collaborator activo → 2 PRs con review real → conflicto resuelto → tag + changelog).
+**Checkpoints riel Azure:** los mismos de la guía (auth ok → repo creado → estrategia documentada → push directo rechazado → 2 PRs por el ciclo completo, uno con self-review → conflicto resuelto → tag + changelog).
 
 > 📌 Este TP **no necesita nube ni tarjeta en ningún riel**: tanto GitHub como Azure DevOps son gratis para esto.
 
@@ -451,7 +475,7 @@ Este trabajo se aprueba **solo si podés explicar qué hiciste, por qué lo hici
 
 ## 🧩 Escenario
 
-Sos el líder técnico de un equipo que arranca un proyecto nuevo. Antes de escribir la primera línea de código de producción, tenés que dejar definido y funcionando el flujo de trabajo: cómo se nombra y se ramifica, cómo entra el código a `main`, quién revisa qué, y cómo se versionan las entregas. Tu equipo (real o simulado con un compañero de la materia) va a trabajar bajo esas reglas.
+Sos el líder técnico de un equipo que arranca un proyecto nuevo. Antes de escribir la primera línea de código de producción, tenés que dejar definido y funcionando el flujo de trabajo: cómo se nombra y se ramifica, cómo entra el código a `main`, qué se revisa antes de mergear, y cómo se versionan las entregas. El TP es individual: vos mismo vas a operar bajo esas reglas — y demostrar que el flujo funciona de punta a punta.
 
 ## 📋 Tareas que debés cumplir
 
@@ -461,9 +485,9 @@ Sos el líder técnico de un equipo que arranca un proyecto nuevo. Antes de escr
 - `.gitignore` acorde al stack.
 
 ### 2. Protecciones y code review
-- `main` protegida: imposible pushear directo; todo entra por PR con **mínimo 1 review aprobada** (de otra persona — coordiná reviews cruzadas con un compañero).
+- `main` protegida: **imposible pushear directo** (incluso siendo admin — sin bypass); todo cambio entra por Pull Request.
 - Al menos **3 PRs mergeados**, de los cuales:
-  - al menos 1 con una **ronda de cambios pedidos y resueltos** (comentario del reviewer + commit de corrección antes del approve),
+  - al menos 1 con una **ronda de self-review** (comentario de revisión sobre una línea de tu propio PR + commit de corrección + conversación resuelta antes del merge),
   - al menos 1 que haya requerido **resolver un conflicto de merge**.
 - Tipo de merge (merge/squash/rebase) elegido y justificado.
 
@@ -472,13 +496,13 @@ Sos el líder técnico de un equipo que arranca un proyecto nuevo. Antes de escr
 
 ## 📄 Entregables
 
-1. **URL del repositorio público** con todo el historial: ramas, PRs, reviews, conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link está en el aula virtual y se comparte en clase).
+1. **URL del repositorio público** con todo el historial: ramas, PRs con sus conversaciones, conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link está en el aula virtual y se comparte en clase).
 2. **`decisiones.md`** en la raíz del repo explicando:
    - Estrategia de branching elegida y justificación.
    - Tipo de merge elegido y justificación.
    - Cómo resolviste el conflicto y con qué criterio.
    - Problemas encontrados y cómo los solucionaste.
-3. **`evidencias.md`** (también en la raíz del repo) con capturas/links de: push directo rechazado, PR con cambios pedidos y resueltos, conflicto (marcadores visibles) y su resolución, release publicada.
+3. **`evidencias.md`** (también en la raíz del repo) con capturas/links de: push directo rechazado, PR con la ronda de self-review (comentario + commit de corrección), conflicto (marcadores visibles) y su resolución, release publicada.
 
 ## 🗣️ Defensa Oral Obligatoria
 
@@ -489,8 +513,9 @@ Se realiza en **P1 (clase 5)**, junto con la defensa de los TPs 2 a 4. Vas a mos
 - ¿Qué diferencia hay entre merge, squash y rebase? ¿Qué perdés y qué ganás con cada uno?
 - ¿Qué pasa si dos personas modifican la misma línea? Mostrame cómo lo resolviste.
 - ¿Para qué sirve proteger `main` si el equipo "se tiene confianza"?
-- ¿Podés aprobar tu propio PR en GitHub? ¿Y en Azure DevOps? ¿Podés mergear sin approval siendo admin? ¿Cómo lo evitaste en tu repo?
-- (Al reviewer:) ¿qué revisaste en el PR de tu compañero y por qué lo aprobaste?
+- ¿Podés aprobar tu propio PR en GitHub? ¿Y en Azure DevOps? ¿Por qué tu protección pide 0 approvals, y qué número pondrías en un equipo real?
+- ¿Podés mergear sin cumplir la protección siendo admin? ¿Cómo lo evitaste en tu repo?
+- En tu PR con self-review: ¿qué comentaste, por qué, y cómo lo resolviste?
 - ¿Qué significa el número de versión que elegiste para tu tag?
 
 ## ✅ Evaluación
