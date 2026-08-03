@@ -65,6 +65,15 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
 - **Defensa**: en P1 (TPs 1–4) y P2 (TPs 5–9). Individual, con tu repo abierto, **navegando en vivo** (y desde P2, con tus **entornos vivos**: URLs de QA/PROD, dashboard de análisis, monitor — o tu **fallback local** del TP6/TP7 si el free tier te falló: avisá antes). Las **preguntas están publicadas** en cada enunciado — no hay sorpresas: salen de la teoría enseñada.
 - **La regla innegociable**: *si no lo podés explicar, no lo aprobás — aunque funcione.* Y su reversa: un repo con cicatrices bien explicadas vale más que uno perfecto defendido con silencios.
 - **La nota es por presentación, no por TP.** Los 9 TPs **no llevan nota propia**: son lo que defendés en la presentación que les toca (P1 → TPs 1–4 · P2 → TPs 5–9). De cada presentación sale **una nota**, y esas dos notas son las de tu cursada — **van por separado: no se promedian ni se compensan entre sí**.
+- **Los TPs no pesan igual.** Esta es la ponderación con la que se forma la nota de cada presentación (refleja esfuerzo y centralidad de cada TP; la defensa, como siempre, puede mover la aguja transversalmente):
+
+  | P1 | TP1 Git | TP2 Docker | TP3 Planificación | TP4 CI |
+  |---|---|---|---|---|
+  | Peso | 20% | 30% | 15% | 35% |
+
+  | P2 | TP5 Testing | TP6 CD | TP7 Contenedores + e2e | TP8 IaC | TP9 DevSecOps |
+  |---|---|---|---|---|---|
+  | Peso | 20% | 25% | 25% | 15% | 15% |
 - **Aprobación y regularidad**: cada presentación se aprueba con **nota ≥ 4** (escala 1–10). Para **regularizar** necesitás **las dos presentaciones aprobadas**.
 - **Recuperatorio (clase 12): la red es una sola.** Si una presentación quedó abajo de 4, en la clase 12 volvés a presentar **ese bloque completo** — los TPs 1–4 o los 5–9, según cuál haya sido. Si **las dos** quedaron abajo de 4, la materia queda **libre** (la recursás) — y lo mismo si vas al recuperatorio y tampoco lo aprobás. Ante la duda, avisá temprano y lo acomodamos en el momento, no en la clase 12.
 

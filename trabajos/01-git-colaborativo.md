@@ -526,6 +526,8 @@ Se realiza en **P1 (clase 5)**, junto con la defensa de los TPs 2 a 4. Vas a mos
 | Claridad y justificación en `decisiones.md` + `evidencias.md` | 25% |
 | Defensa oral: comprensión y argumentación | 50% |
 
+> ⚖️ Peso orientativo de este TP en la nota de **P1**: **20%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
+
 ## ⚠️ Uso de IA
 
 Podés usar IA (ChatGPT, Copilot, Claude), pero **deberás declarar en `decisiones.md` qué parte fue asistida por IA** y justificar cómo la verificaste. Si no podés defenderlo, **no se aprueba**.
