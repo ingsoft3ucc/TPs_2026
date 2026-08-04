@@ -302,13 +302,40 @@ cd ingsoft3-tp01
 
 Ahora **creá** un archivo llamado `.gitignore` en la raíz del proyecto (con tu editor, o con
 `touch .gitignore` y después abriéndolo). Es el archivo que le dice a Git qué cosas **no** se
-versionan: binarios, dependencias, secretos. Copiale adentro el contenido que corresponda a tu stack
-desde https://github.com/github/gitignore. Después:
+versionan: binarios, dependencias, secretos.
+
+Todavía no elegiste la app del semestre —eso pasa en el TP2—, así que por ahora alcanza con un
+`.gitignore` mínimo que sirve para cualquier proyecto. Copiá esto adentro:
+
+```gitignore
+# dependencias y artefactos de build
+node_modules/
+bin/
+obj/
+dist/
+build/
+
+# secretos: NUNCA se versionan
+.env
+*.local
+
+# basura del sistema operativo y del editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+```
+
+> 💡 Cuando en el TP2 elijas tu app y sepas con qué está hecha, vas a ampliarlo con el archivo que
+> corresponda a esa tecnología — hay uno por stack en https://github.com/github/gitignore. Ese
+> repositorio es la referencia de la industria para esto.
+
+Después:
 
 ```bash
 git status                     # ves el archivo nuevo, sin seguimiento
 git add .gitignore             # lo pasás al área de staging (§3.3)
-git commit -m "chore: agrega .gitignore para el stack del proyecto"
+git commit -m "chore: agrega .gitignore base del proyecto"
 git push
 ```
 
@@ -324,8 +351,10 @@ ni siquiera vos. Todo cambio va a tener que entrar por un Pull Request.
 
 En la web son tres decisiones:
 
-1. En tu repositorio: **Settings → Branches → Add branch protection rule**
-   (o *Add classic branch protection rule*, según cómo te lo muestre GitHub).
+1. En tu repositorio: **Settings → Branches**, y ahí el botón para agregar la regla.
+   ⚠️ GitHub le viene cambiando el nombre: hoy dice **Add rule**, y según la cuenta puede
+   aparecer como *Add branch protection rule* o *Add classic branch protection rule*. Los tres
+   llevan al mismo formulario. Lo que NO tenés que usar es *Go to rulesets* (ver el aviso de §4.4).
 2. **Branch name pattern**: `main`
 3. Activá **Require a pull request before merging**.
    ⚠️ Al activarlo, GitHub **tilda solo** la casilla *Require approvals* que aparece debajo, con el
@@ -525,7 +554,9 @@ vas a poder volver a capturarlos.
 
 **Resolver es decidir el contenido, no ejecutar un comando.** Elegí qué queda —una versión, la otra,
 o una combinación—, **borrá las tres líneas de marcadores** para que el archivo quede como si el
-conflicto nunca hubiera existido, y tocá **Mark as resolved** y después **Commit merge**.
+conflicto nunca hubiera existido, y tocá **Resolve** — el botón está deshabilitado hasta que no quede ningún marcador, así que
+si no te deja, es que todavía queda alguno. Después, **Commit merge**. (En algunas cuentas ese
+primer botón aparece como *Mark as resolved*.)
 
 Ahora el PR de B se puede mergear. Hacelo.
 
@@ -695,7 +726,7 @@ el que revisa y el que administra el repositorio— los vas a ocupar vos.
 
 ### 1. Repositorio
 - Repositorio **público** en la plataforma elegida (GitHub, Azure Repos u otra).
-- `.gitignore` acorde al stack.
+- `.gitignore` en la raíz (el base alcanza: la app del semestre se elige en el TP2).
 
 ### 2. Protecciones
 - `main` protegida: **imposible pushear directo** — ni siquiera para vos, que sos el administrador
