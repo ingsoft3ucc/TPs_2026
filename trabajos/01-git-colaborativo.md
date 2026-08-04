@@ -619,7 +619,8 @@ GitHub rechaza el push porque main está protegida y la regla alcanza también a
 
 **`decisiones.md`** — tres cosas, cortas y honestas:
 
-1. **Cómo resolviste el conflicto** y con qué criterio elegiste qué versión quedaba.
+1. **Por qué Git no pudo resolver el conflicto solo** — y qué habría tenido que pasar para que
+   nunca apareciera.
 2. **Qué problemas encontraste** y cómo los solucionaste. Los tropiezos bien contados valen más que
    un camino perfecto: son los que demuestran que entendiste.
 3. **Declaración de uso de IA**: qué partes hiciste con ayuda de inteligencia artificial y cómo
@@ -719,10 +720,11 @@ te van a salir solos: lo que se evalúa es que el historial muestre el flujo fun
 ## 📄 Entregables
 
 1. **URL del repositorio público** con todo el historial: ramas, PRs con sus conversaciones,
-   conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link está en el
-   aula virtual y se comparte en clase).
+   conflicto resuelto, tag y release. Se carga en el formulario de la cátedra (el link
+   está en este repositorio y se comparte en clase).
 2. **`decisiones.md`** en la raíz del repositorio, con tres cosas:
-   - **Cómo resolviste el conflicto y con qué criterio** elegiste qué versión quedaba.
+   - **Por qué Git no pudo resolver el conflicto solo** y qué habría tenido que pasar para que
+     nunca apareciera.
    - **Qué problemas encontraste y cómo los solucionaste** (los errores contados con honestidad valen
      más que un camino perfecto).
    - **Declaración de uso de IA**: qué partes hiciste con ayuda de inteligencia artificial y cómo
@@ -740,8 +742,8 @@ navegando en vivo y responder preguntas como:
   pushear directo?
 - ¿Qué es una rama *realmente* para Git? ¿Y por qué el merge que hiciste en GitHub no aparecía en tu
   máquina hasta que hiciste `pull`?
-- ¿Qué pasa cuando dos personas modifican la misma línea? Mostrame tu conflicto y contame con qué
-  criterio elegiste qué quedaba.
+- ¿Qué pasa cuando dos personas modifican la misma línea? Mostrame tu conflicto y explicame por qué
+  Git no pudo resolverlo solo.
 - El code review es la práctica central de un equipo (§3.6) y en este TP trabajaste solo:
   ¿qué buscarías vos en el Pull Request de un compañero, y qué NO discutirías nunca en una revisión?
 - ¿Qué significa el número de versión que le pusiste al tag?
