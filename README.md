@@ -36,7 +36,9 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 
 A partir del **TP2** elegís una aplicación **full-stack (frontend + backend + base de datos)** — propia o adaptada de un repo público — y esa misma app te acompaña toda la materia: cada TP le agrega una capa (CI, calidad, CD, imagen, e2e, IaC, seguridad, observabilidad). El **TP Integrador** — condición para rendir el final — pide exactamente esa cadena completa: si venís al día, al llegar a P2 lo tenés ~80% hecho.
 
-- **Un solo repo**: la app entra al **mismo repo del TP1** (el de las protecciones) — tu historial del semestre es evidencia del Integrador. Si preferís repo nuevo al elegir la app, el TP2 (§3.2) te dice cómo hacerlo bien (migrar `decisiones.md`, recrear protecciones, avisar).
+- 📌 **Cómo elegirla**: los 5 criterios de selección y el test de 20 minutos que conviene hacer **antes** de comprometerse con una app están en [`elegir-app.md`](elegir-app.md). Leelo antes del TP2 — es el documento que más dolores de cabeza evita.
+- **Un solo repo**: la app entra al **mismo repo del TP1** (el de las protecciones) — tu historial del semestre es evidencia del Integrador. Los TPs no son entregables sueltos: son **capas sobre el mismo artefacto** (el pipeline del TP4 corre los tests del TP5, el CD del TP6 despliega la imagen del TP7). Un repo por TP obligaría a copiar la app y recrear protecciones, secretos y environments cada semana, y las copias divergen. Si preferís repo nuevo al elegir la app, el TP2 (§3.2) te dice cómo hacerlo bien (migrar `decisiones.md`, recrear protecciones, avisar).
+- **Un tag por TP** (así el avance es incremental y verificable): al cerrar cada TP, etiquetás ese commit — `git tag -a tp2 -m "TP2 cerrado" && git push origin tp2`. Cada TP queda con su **snapshot congelado**: podés volver a él si rompés algo, y en la defensa se navega el estado exacto con el que cerraste cada uno. Si después corregís un TP ya etiquetado, movés el tag (`git tag -f tp2 && git push -f origin tp2`) y lo contás en `decisiones.md`. Bonus: etiquetar una versión es justamente el concepto de **release inmutable** que trabajás en el TP7.
 - **Política de cambio de app**: podés cambiarla **hasta el TP4 inclusive** (rehaciendo lo entregado, que hasta ahí es chico). Después, consultá a la cátedra antes — el costo crece mucho.
 - La cátedra mantiene un **sample de referencia** con la estructura que las guías asumen: [`ingsoft3ucc/demo-fullstack`](https://github.com/ingsoft3ucc/demo-fullstack) (.NET 8 + React/Vite + PostgreSQL, `./backend` + `./frontend`). Es el repo de las demos en clase — podés inspirarte en su estructura, **no** entregarlo como tu app.
 
@@ -94,6 +96,10 @@ defensa correspondiente.
 Podés volver a abrir tu entrega y corregirla las veces que quieras hasta la fecha de defensa: se
 toma la última. Es un formulario y no una planilla compartida, así que nadie puede pisar la entrega
 de otro.
+
+**Antes de entregar, verificá que estén los tags de los TPs que cubre la presentación** (`tp1`…`tp4`
+para P1, `tp5`…`tp9` para P2, ver §3): son el punto exacto que se mira de cada TP. Si falta alguno,
+etiquetá el commit donde ese TP quedó cerrado y pusheá el tag.
 
 ## 6. Uso de Inteligencia Artificial
 
