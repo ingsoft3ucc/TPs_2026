@@ -15,20 +15,22 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 
 ## 2. Estructura de la cursada
 
-| # | Clase | Tipo | Tema | Filminas | TP |
-|---|---|---|---|---|---|
-| 1 | C1 | Contenido | Cultura DevOps + Git para equipos | [PDF](clases/Clase01/Clase01-presentacion.pdf) | [TP1](trabajos/01-git-colaborativo.md) |
-| 2 | C2 | Contenido | Contenedores: Docker + Compose | — | *próximamente* |
-| 3 | C3 | Contenido | Plataformas DevOps + planificación ágil | — | *próximamente* |
-| 4 | C4 | Contenido | CI: Pipelines as Code | — | *próximamente* |
-| 5 | **P1** | **Defensa** | **Defensa oral de TPs 1–4** | — | — |
-| 6 | C5 | Contenido | Testing en el pipeline: unit tests + coverage + análisis estático | — | *próximamente* |
-| 7 | C6 | Contenido | CD: environments, aprobaciones y deployment patterns | — | *próximamente* |
-| 8 | C7 | Contenido | Contenedores en el pipeline + pruebas e2e | — | *próximamente* |
-| 9 | C8 | Contenido | Infraestructura como Código | — | *próximamente* |
-| 10 | C9 | Contenido | DevSecOps + Observabilidad + Continuous Feedback | — | *próximamente* |
-| 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | — | — |
-| 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | — | — |
+| # | Clase | Tipo | Tema | Filminas | Video de la clase | TP | Video del TP |
+|---|---|---|---|---|---|---|---|
+| 1 | C1 | Contenido | Cultura DevOps + Git para equipos | [PDF](clases/Clase01/Clase01-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase01/Clase01-video.mp4) | [TP1](trabajos/01-git-colaborativo.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp01/TP01-video.mp4) |
+| 2 | C2 | Contenido | Contenedores: Docker + Compose | — | — | *próximamente* | — |
+| 3 | C3 | Contenido | Plataformas DevOps + planificación ágil | — | — | *próximamente* | — |
+| 4 | C4 | Contenido | CI: Pipelines as Code | — | — | *próximamente* | — |
+| 5 | **P1** | **Defensa** | **Defensa oral de TPs 1–4** | — | — | — | — |
+| 6 | C5 | Contenido | Testing en el pipeline: unit tests + coverage + análisis estático | — | — | *próximamente* | — |
+| 7 | C6 | Contenido | CD: environments, aprobaciones y deployment patterns | — | — | *próximamente* | — |
+| 8 | C7 | Contenido | Contenedores en el pipeline + pruebas e2e | — | — | *próximamente* | — |
+| 9 | C8 | Contenido | Infraestructura como Código | — | — | *próximamente* | — |
+| 10 | C9 | Contenido | DevSecOps + Observabilidad + Continuous Feedback | — | — | *próximamente* | — |
+| 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | — | — | — | — |
+| 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | — | — | — | — |
+
+> 🎥 Hay **dos tipos de video**: la **grabación de la clase** (la clase completa, tal como se dictó) y la **guía en video del TP** (recorrido de la consigna, paso a paso). Son complementarios: la clase da los fundamentos, la guía muestra cómo resolver la entrega.
 
 **No hay parciales escritos**: tus notas son **dos**, y salen de las dos presentaciones (P1 sobre los TPs 1–4, P2 sobre los TPs 5–9). La materia se aprueba **trabajando todas las semanas** — está diseñada para que cada TP tome una semana si venís al día, y para que se acumule mal si no.
 
@@ -125,6 +127,7 @@ La IA es una herramienta de productividad, no un reemplazo del entendimiento. Co
 - **Consultas**: en clase (el bloque de manos a la obra existe para eso) y por el canal de consultas del curso.
 - **Los enunciados** de la carpeta [`trabajos/`](trabajos/) son la fuente de verdad de cada TP: guía sugerida (aprendizaje) + TP entregable (evaluación). La guía no se entrega; el TP sí.
 - **Las filminas** de cada clase, en PDF, están en [`clases/`](clases/) — se publican después de dictada la clase.
+- **Los videos** —tanto las grabaciones de clase (`clase01`, `clase02`, …) como las guías en video de cada TP (`tp01`, `tp02`, …)— se publican en la sección [Releases](https://github.com/ingsoft3ucc/TPs_2026/releases) del repo y se linkean en la tabla de arriba. No están dentro del repo a propósito: así el `git clone` sigue siendo liviano. El link de la tabla descarga el archivo directo.
 
 ---
 
