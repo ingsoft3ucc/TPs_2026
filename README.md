@@ -18,7 +18,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 | # | Clase | Tipo | Tema | Filminas | Video de la clase | TP | Video del TP |
 |---|---|---|---|---|---|---|---|
 | 1 | C1 | Contenido | Cultura DevOps + Git para equipos | [PDF](clases/Clase01/Clase01-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase01/Clase01-video.mp4) | [TP1](trabajos/01-git-colaborativo.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp01/TP01-video.mp4) |
-| 2 | C2 | Contenido | Contenedores: Docker + Compose | [PDF](clases/Clase02/Clase02-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase02/Clase02-video.mp4) | [TP2](trabajos/02-docker-compose.md) | *próximamente* |
+| 2 | C2 | Contenido | Contenedores: Docker + Compose | [PDF](clases/Clase02/Clase02-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase02/Clase02-video.mp4) | [TP2](trabajos/02-docker-compose.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp02/TP02-video.mp4) |
 | 3 | C3 | Contenido | Plataformas DevOps + planificación ágil | — | — | *próximamente* | — |
 | 4 | C4 | Contenido | CI: Pipelines as Code | — | — | *próximamente* | — |
 | 5 | **P1** | **Defensa** | **Defensa oral de TPs 1–4** | — | — | — | — |
