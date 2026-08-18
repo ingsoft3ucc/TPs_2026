@@ -19,7 +19,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 |---|---|---|---|---|---|---|---|
 | 1 | C1 | Contenido | Cultura DevOps + Git para equipos | [PDF](clases/Clase01/Clase01-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase01/Clase01-video.mp4) | [TP1](trabajos/01-git-colaborativo.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp01/TP01-video.mp4) |
 | 2 | C2 | Contenido | Contenedores: Docker + Compose | [PDF](clases/Clase02/Clase02-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase02/Clase02-video.mp4) | [TP2](trabajos/02-docker-compose.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp02/TP02-video.mp4) |
-| 3 | C3 | Contenido | Plataformas DevOps + planificación ágil | — | — | *próximamente* | — |
+| 3 | C3 | Contenido | Plataformas DevOps + planificación ágil | [PDF](clases/Clase03/Clase03-presentacion.pdf) | *próximamente* | [TP3](trabajos/03-planificacion-devops.md) | *próximamente* |
 | 4 | C4 | Contenido | CI: Pipelines as Code | — | — | *próximamente* | — |
 | 5 | **P1** | **Defensa** | **Defensa oral de TPs 1–4** | — | — | — | — |
 | 6 | C5 | Contenido | Testing en el pipeline: unit tests + coverage + análisis estático | — | — | *próximamente* | — |
@@ -73,7 +73,7 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
 
   | P1 | TP1 Git | TP2 Docker | TP3 Planificación | TP4 CI |
   |---|---|---|---|---|
-  | Peso | 5% | 35% | 20% | 40% |
+  | Peso | 5% | 40% | 10% | 45% |
 
   | P2 | TP5 Testing | TP6 CD | TP7 Contenedores + e2e | TP8 IaC | TP9 DevSecOps |
   |---|---|---|---|---|---|
@@ -125,7 +125,7 @@ La IA es una herramienta de productividad, no un reemplazo del entendimiento. Co
 
 - **Cómo es una clase**: bloque teórico + pausa + demo en vivo + presentación del TP + **manos a la obra** (trabajás sobre tu propio TP en el aula, con soporte). La teoría acá es **la de la práctica**: los fundamentos que necesitás para resolver el TP de la semana y para defenderlo — no repite ni reemplaza a la materia teórica. Traé tu notebook con Docker funcionando desde la C2.
 - **Consultas**: en clase (el bloque de manos a la obra existe para eso) y por el canal de consultas del curso.
-- **Los enunciados** de la carpeta [`trabajos/`](trabajos/) son la fuente de verdad de cada TP: guía sugerida (aprendizaje) + TP entregable (evaluación). La guía no se entrega; el TP sí.
+- **Los enunciados** de la carpeta [`trabajos/`](trabajos/) son la fuente de verdad de cada TP: guía paso a paso (aprendizaje) + TP entregable (evaluación). Por regla general la guía no se entrega y el TP sí — **con una excepción: en el TP3 lo que la guía hace ES la entrega**, y el propio enunciado lo aclara.
 - **Las filminas** de cada clase, en PDF, están en [`clases/`](clases/) — se publican después de dictada la clase.
 - **Los videos** —tanto las grabaciones de clase (`clase01`, `clase02`, …) como las guías en video de cada TP (`tp01`, `tp02`, …)— se publican en la sección [Releases](https://github.com/ingsoft3ucc/TPs_2026/releases) del repo y se linkean en la tabla de arriba. No están dentro del repo a propósito: así el `git clone` sigue siendo liviano. El link de la tabla descarga el archivo directo.
 
