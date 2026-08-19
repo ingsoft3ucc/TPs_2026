@@ -200,6 +200,10 @@ gh issue create --title 'CI: build y tests automáticos en cada PR' --label stor
 - [ ] Badge de estado visible en el README'
 ```
 
+> 📌 **La épica no lleva criterios de aceptación.** No se verifica por sí misma: se da por
+> cerrada cuando sus historias están cerradas. Los criterios van donde algo se puede comprobar,
+> que es la historia.
+
 - Creá **la historia** y sus **2 tareas** — las mismas del video, sobre tu repositorio.
 
   > 🔴 **Acá lo que hace la guía SÍ es tu entrega — al revés del TP2.** En el práctico anterior,
@@ -358,6 +362,11 @@ que vas a extender en el TP4.
 4. En la página del PR, la línea que importa va en la **descripción**:
    `Closes #<numero_de_LA_TAREA>` → **Create pull request**.
 
+   > 🔴 **El número que va ahí es el de la TAREA, no el de la historia.** Un Pull Request
+   > implementa una tarea concreta, así que cierra esa tarea. La historia sigue **abierta**
+   > hasta que estén hechas las dos, y la cerrás vos. Si ponés el número de la historia, la
+   > vas a cerrar con la mitad del trabajo sin hacer — y la trazabilidad queda mintiendo.
+
 **Lo mismo, desde la terminal:**
 
 ```bash
@@ -513,7 +522,8 @@ Vas a mostrar tu trabajo y responder preguntas como:
 - ¿Por qué elegiste esa duración de sprint y ese límite de trabajo en progreso? ¿Qué pasa si lo subo a diez?
 - ¿Por qué el bug no cuelga de la historia? ¿Y cómo sabés que algo es un bug y no trabajo que te faltó?
 - ¿Qué te da GitHub Projects / Azure Boards que un Trello no te da?
-- Si esto fuera un equipo de 5 personas, ¿qué cambiarías de tu board?
+- Tu límite de trabajo en progreso es un número que elegiste vos: ¿qué te haría subirlo, y qué
+  señal te diría que quedó demasiado alto?
 
 ## ✅ Evaluación
 
