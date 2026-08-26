@@ -782,6 +782,18 @@ Ya tenés la app contenerizada (TP2), pero la verificación sigue siendo artesan
 
 ## 📄 Entregables
 
+
+> 🏷️ **Cerrá el práctico con su tag y su release**, como hiciste en el TP1. La numeración sigue el
+> número del práctico: **TP4 → `v4.0.0`**.
+>
+> ```bash
+> git tag -a v4.0.0 -m "TP4 cerrado"
+> git push origin v4.0.0
+> ```
+>
+> Y la release desde la web —*Releases → Draft a new release*—, eligiendo ese tag, con el título
+> `v4.0.0` y una descripción de qué incluye. Cada práctico queda así con su **estado congelado**:
+> podés volver a él si rompés algo, y en la defensa se navega el punto exacto en el que cerraste.
 1. **URL del repositorio público** (se carga en el formulario de la cátedra — el link está en el README del repositorio de la materia) con el workflow, el historial de corridas y los PRs.
 2. **`decisiones.md`** (en la raíz, se acumula sobre el de TPs anteriores) explicando:
    - Estructura elegida del pipeline (¿por qué esos jobs? ¿por qué en paralelo?).
