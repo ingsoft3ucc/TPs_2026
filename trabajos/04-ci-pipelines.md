@@ -5,6 +5,14 @@ Este documento tiene **dos partes**:
 1. **Guía de práctica sugerida** (primera parte): paso a paso para aprender haciendo. **NO es lo que se entrega.**
 2. **El Trabajo Práctico entregable** (al final): escenario, tareas, entregables y defensa oral. **Eso es lo que se evalúa.**
 
+## 📦 Un solo repositorio para todo el semestre
+
+**Todos los prácticos de la materia se hacen sobre el mismo repositorio: el que creaste en el TP1.** No se crea uno nuevo por práctico, y no se arranca de cero en cada uno — cada TP agrega una capa sobre lo que ya está.
+
+Cada TP se cierra con su **tag y su release**, y el número mayor es el número del práctico: **TP1 → `v1.0.0`, TP2 → `v2.0.0`, TP3 → `v3.0.0`**, y así hasta el TP9. Así cada entrega queda con su **estado congelado**: en la defensa se navega el punto exacto en el que cerraste cada una, y podés volver a cualquiera con `git checkout v2.0.0`.
+
+Los archivos `decisiones.md` y `evidencias.md` también son **únicos**: no se rehacen por práctico — se les agrega abajo la sección del TP nuevo.
+
 ## Sobre las herramientas en este TP
 
 En esta materia hay dos **rieles** — caminos guiados con soporte de la cátedra — más la opción libre:

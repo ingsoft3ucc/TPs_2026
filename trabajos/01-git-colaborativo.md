@@ -5,6 +5,14 @@ Tiene **dos partes**, y las dos te sirven:
 1. **La guía paso a paso** (lo que sigue): es **el camino para hacer el TP**. Seguila de arriba a abajo y al terminar vas a tener el trabajo hecho. Tiene **checkpoints** ✅ para verificar que vas bien, y cuatro momentos marcados 📸 donde tenés que sacar una captura.
 2. **El enunciado del TP** (al final): qué se entrega y qué se evalúa. **La guía no se entrega** — lo que se entrega es tu repositorio, con los archivos `decisiones.md` y `evidencias.md`.
 
+## 📦 Un solo repositorio para todo el semestre
+
+**Todos los prácticos de la materia se hacen sobre el mismo repositorio: el que vas a crear en este TP.** No se crea uno nuevo por práctico, y no se arranca de cero en el TP2.
+
+Cada TP se cierra con su **tag y su release**, y el número mayor es el número del práctico: **TP1 → `v1.0.0`, TP2 → `v2.0.0`, TP3 → `v3.0.0`**, y así hasta el TP9. Así cada entrega queda con su **estado congelado**: en la defensa se navega el punto exacto en el que cerraste cada una, y podés volver a cualquiera con `git checkout v2.0.0`.
+
+Los archivos `decisiones.md` y `evidencias.md` también son **únicos**: no se rehacen por práctico — se les agrega abajo la sección del TP nuevo.
+
 ## Sobre las herramientas en esta materia
 
 En esta materia hay dos **rieles** — caminos guiados con soporte de la cátedra — más la opción libre:
