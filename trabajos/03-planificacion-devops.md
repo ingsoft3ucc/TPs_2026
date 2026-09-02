@@ -469,6 +469,18 @@ Ya tenés la app contenerizada (TP2) y un flujo de Git ordenado (TP1). Ahora el 
 
 ## 📄 Entregables
 
+
+> 🏷️ **Cerrá el práctico con su tag y su release**, como hiciste en el TP1. La numeración sigue el
+> número del práctico: **TP3 → `v3.0.0`**.
+>
+> ```bash
+> git tag -a v3.0.0 -m "TP3 cerrado"
+> git push origin v3.0.0
+> ```
+>
+> Y la release desde la web —*Releases → Draft a new release*—, eligiendo ese tag, con el título
+> `v3.0.0` y una descripción de qué incluye. Cada práctico queda así con su **estado congelado**:
+> podés volver a él si rompés algo, y en la defensa se navega el punto exacto en el que cerraste.
 > ## ✅ Lo que se corrige — la lista completa
 >
 > - **URL del repositorio** + **URL del proyecto** (público)

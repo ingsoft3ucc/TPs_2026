@@ -932,6 +932,18 @@ Tu proyecto adopta contenedores como unidad de despliegue. Como responsable téc
 
 ## 📄 Entregables
 
+
+> 🏷️ **Cerrá el práctico con su tag y su release**, como hiciste en el TP1. La numeración sigue el
+> número del práctico: **TP2 → `v2.0.0`**.
+>
+> ```bash
+> git tag -a v2.0.0 -m "TP2 cerrado"
+> git push origin v2.0.0
+> ```
+>
+> Y la release desde la web —*Releases → Draft a new release*—, eligiendo ese tag, con el título
+> `v2.0.0` y una descripción de qué incluye. Cada práctico queda así con su **estado congelado**:
+> podés volver a él si rompés algo, y en la defensa se navega el punto exacto en el que cerraste.
 1. **URL del repositorio, público** (se carga en el formulario de la cátedra) con la app, los dos Dockerfiles y sus `.dockerignore`, el `nginx.conf` del frontend si corresponde, el `docker-compose.yml`, el `.env.example`, el `docker-compose.registry.yml` y el `README.md` de arranque. Si tu repo del TP1 quedó privado, cambiale la visibilidad: *Settings → General → abajo de todo, Danger Zone → Change visibility*.
 2. **`decisiones.md`** explicando:
    - Qué app elegiste y por qué (contra los criterios de la guía).
@@ -979,7 +991,7 @@ Vas a mostrar tu trabajo y responder preguntas como:
 | Claridad y justificación en `decisiones.md` + `evidencias.md` | 25% |
 | Defensa oral: comprensión y argumentación | 50% |
 
-> ⚖️ Peso orientativo de este TP en la nota de **P1**: **35%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
+> ⚖️ Peso orientativo de este TP en la nota de **P1**: **40%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
 
 ## ⚠️ Uso de IA
 

@@ -605,6 +605,11 @@ aviso y los marcadores).
 
 Un **tag** marca un commit con un nombre inmutable; una **release** le agrega comunicación (§3.7).
 
+> 🏷️ **Y esto se repite en cada práctico, con la misma numeración.** Cada TP cierra con su tag y su
+> release, y el número mayor es el número del práctico: **TP1 → `v1.0.0`**, TP2 → `v2.0.0`, TP3 →
+> `v3.0.0`, y así hasta el final. Así cada entrega queda con su estado congelado y en la defensa se
+> navega el punto exacto en el que cerraste cada una.
+
 El tag se crea desde tu máquina:
 
 ```bash
