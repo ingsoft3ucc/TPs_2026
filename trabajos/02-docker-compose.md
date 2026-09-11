@@ -272,7 +272,7 @@ curl -s http://localhost:8080/health | jq     # {"status": "ok"}
 
 ### 3.3 Elegir la app del semestre ⭐ (la decisión más importante del TP)
 
-Esta app te acompaña hasta el final: en TP4 le armás CI, en TP5 tests y análisis estático, en TP6 la desplegás con aprobaciones, en TP7 viaja como imagen, en TP8 su infra se define como código, en TP9 la asegurás y monitoreás, y es la base del **Integrador**.
+Esta app te acompaña hasta el final: en TP4 le armás CI, en TP5 tests y cobertura con umbral, en TP6 la publicás y la desplegás con aprobaciones, en TP7 viaja como imagen, en TP8 su infra se define como código, en TP9 la asegurás y monitoreás, y es la base del **Integrador**.
 
 **Requisitos mínimos:**
 - Un servicio de **backend** con API (el lenguaje lo elegís vos: .NET, Node, Java, Python, Go…).

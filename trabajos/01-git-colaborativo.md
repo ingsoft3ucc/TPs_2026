@@ -63,7 +63,7 @@ Fijate qué **no** dice esa definición: no menciona herramientas, ni nubes, ni 
 | Plan | TP3 (boards, historias, trazabilidad) |
 | Code | TP1 (Git, branching, PRs) + TP2 (contenerización de la app) |
 | Build | TP4 (CI) |
-| Test | TP5 (unit tests, coverage, análisis estático) + TP7 (e2e) |
+| Test | TP5 (unit tests, coverage con umbral) + TP7 (e2e) + TP9 (análisis estático) |
 | Release / Deploy | TP6 (CD, entornos, aprobaciones) + TP7 (contenedores) + TP8 (IaC) |
 | Operate / Monitor | TP9 (seguridad, monitoreo, feedback) |
 
