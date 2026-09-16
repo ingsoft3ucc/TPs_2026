@@ -1370,7 +1370,7 @@ Se realiza en **P2**, junto con los TPs 6 a 9. Vas a mostrar tu trabajo y respon
 | Claridad y justificación en `decisiones.md` (cada decisión con su prueba al lado) | 25% |
 | Defensa oral: comprensión y argumentación | 50% |
 
-> ⚖️ Peso orientativo de este TP en la nota de **P2**: **20%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
+> ⚖️ Peso orientativo de este TP en la nota de **P2**: **25%** (la ponderación completa de los 9 TPs está en el reglamento, §5).
 
 > 🎯 **Se corrige el logro, no la herramienta.** Los ejemplos están escritos sobre la app de la
 > cátedra (.NET + vitest) porque un ejemplo tiene que estar escrito en *algo*; la tabla «Tu stack,

@@ -14,7 +14,7 @@ Este documento tiene **dos partes**:
 
 Cada TP se cierra con su **tag y su release**, y el número mayor es el número del práctico: **TP1 → `v1.0.0`, TP2 → `v2.0.0`, TP3 → `v3.0.0`**, y así hasta el TP9. Así cada entrega queda con su **estado congelado**: en la defensa se navega el punto exacto en el que cerraste cada una, y podés volver a cualquiera con `git checkout v2.0.0`.
 
-Los archivos `decisiones.md` y `evidencias.md` también son **únicos**: no se rehacen por práctico — se les agrega abajo la sección del TP nuevo.
+El archivo `decisiones.md` también es **único**: no se rehace por práctico — se le agrega abajo la sección del TP nuevo. (`evidencias.md` se pidió en el TP1 y el TP2; **desde este práctico no se pide más**.)
 
 ## Sobre las herramientas en este TP
 
@@ -521,8 +521,9 @@ Ya tenés la app contenerizada (TP2) y un flujo de Git ordenado (TP1). Ahora el 
 > sí necesitás cubrirlo — con capturas completas de esas tres cosas o dándole acceso de lectura
 > a la cátedra.
 >
-> *(En los otros prácticos `evidencias.md` sigue existiendo: acá se saltea porque el entregable
-> es un proyecto público y se ve solo.)*
+> *(Y **desde acá en adelante tampoco**: del TP3 al TP9 no se pide `evidencias.md`. Todo lo que se
+> corrige se navega en tu repositorio público, y lo que no deja rastro ahí se cuenta en
+> `decisiones.md`.)*
 
 > 📅 **Fecha de entrega y formulario**: los publica la cátedra en el aula virtual. La duración
 > del sprint que elijas conviene alinearla con ese calendario — es justamente el tipo de
