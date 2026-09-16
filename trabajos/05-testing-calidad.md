@@ -288,7 +288,7 @@ herramientas — se evalúa que **logres** cada cosa, no con qué la lograste.
 | **Reporte legible del resultado** | ReportGenerator | el `site` que genera JaCoCo | `--cov-report=html` | reporter `lcov` / `html` |
 | 🔴 **Que las herramientas de test ENTREN a la etapa de tests del Dockerfile** | el SDK ya las trae (`FROM build`) | que el build no saltee las dependencias con `<scope>test</scope>` | instalar también el `requirements` de tests (`requirements-dev.txt`) | `npm ci` **sin** `--omit=dev` |
 
-📌 **Las dos filas marcadas son las que más se equivocan**, y no por casualidad. Medir la cobertura
+📌 **Las filas marcadas son las que más se equivocan**, y no por casualidad. Medir la cobertura
 es un flag en todos lados; hacer que un número bajo **frene** el build es una configuración aparte,
 en todos lados. Y **decir qué entra en la cuenta** es la que nadie recuerda: sin eso, el umbral se
 calcula sobre el arranque y los archivos generados, el número se desploma, y el gate falla siempre
@@ -369,8 +369,9 @@ nombra y no se ven en ningún otro lado: el parametrizado, el caso de error y el
 > Ahora sí, la comprobación: `dotnet test MiApi.Tests/MiApi.Tests.csproj` tiene que correr **1 test
 > de ejemplo**.
 >
-> Cambiá `MiApi` por el nombre de tu proyecto (los bloques de abajo usan `DemoApi.Tests`, el del
-> repo de la cátedra). El template ya trae `coverlet.collector`, así que la cobertura del §3.1 va a
+> Cambiá `MiApi` por el nombre de tu proyecto. Los bloques escritos para vos dicen `MiApi`; los que
+> se copian del video —el YAML, el `ENTRYPOINT` con el umbral— dicen `DemoApi`, el de la app de la
+> cátedra. En los dos casos va el **tuyo**. El template ya trae `coverlet.collector`, así que la cobertura del §3.1 va a
 > funcionar sin instalar nada más. **Si tu backend tiene un `.sln`**, agregá también el proyecto:
 > `dotnet sln add MiApi.Tests/MiApi.Tests.csproj`. (Si no tenés uno y lo creás ahora, ojo: el SDK
 > actual genera un `.slnx`, no un `.sln` — usá el nombre que te haya quedado en los comandos de
@@ -580,9 +581,11 @@ código**, no sólo escribir un test.
 > (entorno *Development*) .NET valida las dependencias al arrancar: si registraste el servicio pero
 > no su `INotificador`, la app **no levanta** y te dice cuál falta. En el contenedor (*Production*)
 > esa validación está apagada: la app levanta normal, no loguea nada, y la primera llamada de verdad
-> **falla con un 500**. Y si no registraste **nada**, ni siquiera en *Development* revienta: en
-> Minimal APIs un parámetro de un tipo sin registrar se intenta leer del cuerpo del pedido, y también
-> termina en 500. O sea que «probá que arranque» no sirve de comprobación. Lo que sirve, en los dos
+> **falla con un 500**. Y si no registraste **nada**, ni siquiera en *Development* revienta al
+> arrancar: .NET no sabe que ese parámetro es un servicio y lo trata como el cuerpo del pedido. En un
+> POST eso da 400 o 500 según lo que mandes; en un GET, la primera llamada a **cualquier** ruta de la
+> app —hasta `/health`— da 500 con *«Body was inferred but the method does not allow inferred body
+> parameters»*. O sea que «probá que arranque» no sirve de comprobación. Lo que sirve, en los dos
 > lados: **un `curl` al endpoint que usa esa dependencia**, esperando 200.
 
 **El problema, que es de diseño y no de testing.** Mirá una pieza típica de una app que avisa cuando
@@ -641,7 +644,7 @@ Quien lo construye decide qué le pasa: la aplicación real le pasa el notificad
 el test le pasa un impostor. Esa abertura se llama **inyección de dependencias**, y es la diferencia
 entre un código que se testea en dos líneas y uno que no se testea nunca.
 
-**Compilá antes de seguir** (`dotnet build Backend.sln`): si en algún lugar de tu app había un
+**Compilá antes de seguir** (`dotnet build`, sobre tu `.sln` si tenés, o sobre el `.csproj` de la app): si en algún lugar de tu app había un
 `new ServicioDeTareas()` sin argumentos, el error aparece acá y no en el pipeline.
 
 **El test.** La librería que fabrica impostores en .NET es **Moq** (en vitest, `vi.fn()`; en cada
@@ -650,7 +653,7 @@ de tus tests, no algo que tu app se lleve a producción:
 
 ```bash
 cd backend
-dotnet add DemoApi.Tests/DemoApi.Tests.csproj package Moq
+dotnet add MiApi.Tests/MiApi.Tests.csproj package Moq
 ```
 
 Va en **su propio archivo**, `MiApi.Tests/ServicioDeTareasTests.cs` — uno por clase que probás —,
@@ -706,7 +709,8 @@ public class ServicioDeTareasTests
 
 Primero, las otras dos técnicas del lado del front, que también se piden (Tarea 1). En
 `src/lib/tareas.test.js`, el **parametrizado** es `it.each` —el equivalente del `[Theory]` con
-`[InlineData]`— y el **caso de error** es un `it` que comprueba el rechazo y su mensaje:
+`[InlineData]`— y el **caso de error** es un `it` que comprueba el rechazo y su mensaje (el sample
+trae un solo `it` que prueba dos datos; en el video queda partido en uno por dato, así):
 
 ```js
 it.each([
@@ -786,7 +790,7 @@ describe('pendientesDe', () => {
 El segundo test es el que se parece al `Verify` de Moq: **no mira lo que la función devolvió, mira
 qué le pidió a la API**. Si mañana alguien cambia la ruta sin querer, se pone rojo.
 
-Corré `npm test -- --run`: en el sample quedan **10 tests en verde** (los 7 de `validarTitulo` y
+Corré `npm test -- --run`: en el ejemplo del video quedan **10 tests en verde** (en tu app, el número es el tuyo) (los 7 de `validarTitulo` y
 `ordenarTareas` —el `it.each` cuenta uno por dato— más los 3 de `pendientesDe`).
 
 **¿Y en la app de verdad, quién le pasa el cliente?** Es el mismo paso que el registro en
@@ -854,7 +858,8 @@ cd backend
 find . -type d -name TestResults -prune -exec rm -rf {} +   # cada corrida deja una carpeta NUEVA con
 rm -rf coveragereport                                        # otro <guid>: si no borrás las viejas, el
                                                              # reporte de abajo las junta todas
-# (PowerShell: Get-ChildItem -Recurse -Directory -Filter TestResults | Remove-Item -Recurse -Force)
+# (PowerShell: Get-ChildItem -Recurse -Directory -Filter TestResults | Remove-Item -Recurse -Force;
+#  Remove-Item -Recurse -Force coveragereport -ErrorAction SilentlyContinue)
 dotnet test Backend.sln --collect:"XPlat Code Coverage"
 # → <TuProyecto>.Tests/TestResults/<guid>/coverage.cobertura.xml
 #   (el XML aparece bajo el PROYECTO DE TESTS, en una subcarpeta con un identificador
@@ -885,8 +890,8 @@ open coveragereport/index.html   # (Windows: start …)
 Mirá tu reporte: ¿qué % de línea y de **branch** tenés? ¿Qué archivos están en rojo? ¿Cuáles de esos vale la pena testear y cuáles corresponde **excluir** (arranque, config, clases de datos, código generado)?
 
 > 📌 **Para comparar, lo que da la app de la cátedra** con la suite de §3.0 (lo que muestra el
-> video): el proyecto entero, **~30 % de línea y 75 % de rama** —arrastrado por `AppDbContext` y
-> `NotificadorEmail`, en 0 %—; `TareaValidator`, **100 % de línea y 83 % de rama**. La rama que le
+> video): el proyecto entero, **~30 % de línea y 75 % de rama** —arrastrado por `Program`,
+> `AppDbContext` y `NotificadorEmail`, en 0 %—; `TareaValidator`, **100 % de línea y 83 % de rama**. La rama que le
 > falta es el `?.` de `titulo?.Trim()`: justo el ejercicio del recuadro 🔎 de §3.0.
 
 **✅ Checkpoint:** ves tu coverage real (línea y branch) en un reporte HTML local, y podés nombrar qué está cubierto y qué no.
@@ -1117,12 +1122,12 @@ Instalá el paquete de coverage y declará el **umbral**:
 ```bash
 cd frontend
 npm ls vitest                      # anotá el número que te imprime (en el video, 3.2.7)
-npm i -D @vitest/coverage-v8@3     # ⚠️ el @3 es el MAJOR de TU vitest (si es 4.x, @4): la última de la
-                                   #    línea 3, no la última a secas (el latest a secas falla con
-                                   #    ERESOLVE — no lo "arregles" con --force)
-npm ls vitest @vitest/coverage-v8  # 🔴 comprobalo: los DOS tienen que mostrar la MISMA versión.
-                                   #    Si no coinciden (tu vitest no es el último de su línea),
-                                   #    instalá el número exacto: npm i -D @vitest/coverage-v8@3.2.7
+npm i -D @vitest/coverage-v8@3     # ⚠️ el @3 es el MAJOR de TU vitest (4.x → @4, 5.x → @5): la última
+                                   #    de esa línea, no la última a secas
+npm ls vitest @vitest/coverage-v8  # 🔴 comprobalo: los DOS tienen que mostrar la MISMA versión
+# Si el `npm i` de arriba falla con ERESOLVE (tu vitest quedó fijo en una versión anterior de su
+# línea), instalá el número EXACTO de tu vitest —p. ej. npm i -D @vitest/coverage-v8@3.2.4—.
+# Nunca lo "arregles" con --force.
 ```
 
 ```js
@@ -1193,8 +1198,8 @@ y sale con error — aunque todos los tests estén en verde. Ése es el rojo que
 `Tests 0 passed` o un error de versiones mezcladas, el rojo es de instalación, no del umbral.
 
 🔴 **Los `thresholds` sólo se evalúan si la corrida pide cobertura.** `npm test -- --run` a secas,
-sin `--coverage`, no mide nada y pasa en verde aunque estés por debajo: por eso el pipeline corre
-`test:ci`.
+sin `--coverage`, no mide nada y pasa en verde aunque estés por debajo (salvo que actives
+`coverage.enabled` en la config): por eso el pipeline corre `test:ci`.
 
 Y ahora al pipeline, **con la misma receta que el backend**: una etapa de tests en el Dockerfile del
 frontend, que el job construye y corre. Los pasos de abajo van al final de los steps del job
@@ -1257,7 +1262,7 @@ EXPOSE 80
           " >> $GITHUB_STEP_SUMMARY
 
       - name: Publicar el coverage del frontend
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v6   # la del video; ya existe la v7, y cualquiera de las dos anda
         if: ${{ !cancelled() }}
         with:
           name: coverage-frontend
@@ -1301,8 +1306,8 @@ antes de mergear**: esa rama era una demostración, y si entra con el test apaga
 tiene un agujero.
 
 > 📌 **Qué test comentar para verlo frenar — no cualquiera sirve.** Si comentás uno que es **el único
-> que ejecuta una función**, bajan las **líneas** pero no las ramas: la herramienta no cuenta los
-> caminos de una función que nunca se ejecuta. Si comentás uno **cuya función ya tocan otros tests**
+> que ejecuta una función**, bajan las **líneas** y, en vitest 3, no las ramas: esa versión no cuenta
+> los caminos de una función que nunca se ejecuta (desde vitest 4 sí, y bajan las dos). Si comentás uno **cuya función ya tocan otros tests**
 > pero que era el único que recorría un camino de un `if`, las líneas casi no se mueven y bajan las
 > **ramas**. Con `thresholds: { lines: 80, branches: 80 }` frena el que deje corta cualquiera de las
 > dos (en el video, el segundo: 94,73 % de líneas, 66,66 % de ramas). Y si tu suite está muy por
@@ -1417,7 +1422,7 @@ configuración de rama: la protección que armaste en el TP4 ya cubre esto.
 **✅ Checkpoint:** un job se pone rojo **por cobertura** —no sólo por compilación— en los dos lados,
 y ese job figura como *Required* en un Pull Request nuevo. En el Pull Request el check aparece como
 `CI / build-frontend (pull_request)` con la etiqueta **Required**; con él en rojo, el recuadro dice
-*Some checks were not successful* y el botón de merge queda gris.
+*Some checks were not successful* y, para vos como dueño, el botón de merge queda gris.
 
 ### 3.5 Romper el gate (a propósito) y ver la calidad frenar un merge
 
@@ -1464,25 +1469,32 @@ y ese job figura como *Required* en un Pull Request nuevo. En el Pull Request el
    y en rojo, hasta la defensa.** No lo arregles. Abrilo desde `main`, **después** del merge del
    paso 3, con código nuevo sin tests —otro método, no hace falta que sea el mismo— y verificá que
    quede rojo: «chiquito» es de un archivo, no de dos líneas (vale la cuenta del paso 1). Son dos a
-   propósito: el primero *cuenta* la historia, el segundo la *prueba*. Si usás la protección clásica
-   de ramas, su configuración sólo la ve quien administra el repositorio, así que un Pull Request
-   frenado y visible —con su check en rojo y el motivo— es la evidencia que la corrección puede
-   comprobar por su cuenta.
+   propósito: el primero *cuenta* la historia, el segundo la *prueba*. La pantalla de configuración de
+   la protección sólo la ve quien administra el repositorio, y lo que dice no prueba que el freno
+   funcione; un Pull Request frenado y visible —con su check en rojo y el motivo— sí, y la corrección
+   lo comprueba por su cuenta.
 
-> 🔴 **Por qué frena, y en qué métrica — lo vas a tener que contar.** En vitest (v8), una función que
-> ningún test llama **no suma ramas**: sólo suma líneas sin cubrir. Por eso el ejemplo del video frena
-> por **líneas** (74,13 % contra 80) mientras las ramas siguen en 90 %, y recién cuando los tests
-> entran por cada camino las ramas se mueven (a 94,44 %). Dos consecuencias: si tu umbral del front es
-> **sólo de ramas**, código nuevo que nadie ejecuta no lo mueve y la demostración no se pone roja —
-> poné también `lines`—; y para contar los caminos del paso 3 no esperes que el reporte te los muestre
-> como ramas: mirá las **líneas sin cubrir** y leé los `if`, cada salida distinta pide una entrada que
-> la recorra. En `decisiones.md` decí en qué métrica frenó el tuyo: el log lo dice.
+> 🔴 **Por qué frena, y en qué métrica — lo vas a tener que contar, y depende de tu versión de
+> vitest.** En **vitest 3** (el del video) una función que ningún test llama **no suma ramas**: sólo
+> suma líneas sin cubrir. Por eso el ejemplo frena por **líneas** (74,13 % contra 80) mientras las
+> ramas siguen en 90 %, y las ramas recién se mueven (a 94,44 %) cuando los tests entran por cada
+> camino. **Desde vitest 4** esas ramas sí cuentan desde el principio: el mismo código cae en las dos
+> métricas (medido: 54,54 % de líneas y 36,84 % de ramas). Por las dos cosas, poné umbral en `lines`
+> **y** en `branches`: con uno solo de ramas, en vitest 3 la demostración no se pone roja. Para contar
+> los caminos del paso 3, no dependas de cómo los muestre el reporte: leé los `if` del código nuevo,
+> cada salida distinta pide una entrada que la recorra. En `decisiones.md` decí en qué métrica frenó
+> el tuyo y con qué versión de vitest: el log lo dice.
 
 <details>
 <summary>📎 El ejemplo del video, para releerlo: el método sin tests y sus cinco tests</summary>
 
 ```js
 // src/lib/tareas.js — agregado al final
+
+/**
+ * Devuelve la prioridad de una tarea segun cuanto hace que se creo.
+ * (Tiene varios caminos adentro y —a proposito— ni un solo test.)
+ */
 export function prioridadDe(tarea, ahora = new Date()) {
   if (!tarea || !tarea.creadaEl) {
     return 'sin-fecha'
@@ -1609,9 +1621,9 @@ Tu pipeline del TP4 verifica que el código compila y que la imagen se construye
 - 🔴 **Son DOS Pull Requests, y esto es lo que más se equivoca.** El primero lo hacés entero —rojo,
   los tests que faltaban, verde, merge— y su historial cuenta la secuencia. El segundo es chiquito,
   tiene el mismo problema **sin arreglar**, y queda **abierto y en rojo hasta la defensa**. Uno
-  cuenta la historia; el otro la prueba: con la protección clásica de ramas, la configuración de los
-  required checks sólo la ve quien administra el repo, así que un Pull Request frenado y visible es
-  la evidencia que la corrección puede comprobar sola.
+  cuenta la historia; el otro la prueba: la pantalla de configuración de los required checks sólo la
+  ve quien administra el repo, y no prueba que el freno funcione; un Pull Request frenado y visible
+  sí, y la corrección lo puede comprobar sola.
 
 > 📌 **¿Tu app tiene un solo Dockerfile, o no tenés frontend separado?** No se descuenta nada:
 > los mínimos del frontend (los 4 unit tests con sus tres técnicas, su cobertura y su umbral) no
