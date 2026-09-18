@@ -300,7 +300,7 @@ del umbral suele no ser una bandera: en Go, por ejemplo, se resuelve leyendo el 
 del trabajo, y va contado en `decisiones.md`.
 
 📌 **¿Tu stack no está?** El criterio es el mismo, y averiguarlo **es parte del trabajo**: todos los
-lenguajes tienen las nueve cosas de esta tabla. Contá en `decisiones.md` qué usaste. Lo que no se
+lenguajes tienen **cada fila** de esta tabla. Contá en `decisiones.md` qué usaste. Lo que no se
 acepta es «mi lenguaje no tiene mocks» o «no se puede poner un umbral».
 
 ---
@@ -1602,6 +1602,9 @@ Tu pipeline del TP4 verifica que el código compila y que la imagen se construye
   con mock**. Para el mock, si tu lógica de front habla con la API, pasale un doble al cliente en
   lugar de salir a la red — el ejemplo completo está en §3.0. **No vale «mi front no tiene nada que
   mockear»**: si no lo tiene, abrí el código para que lo tenga, igual que en el backend.
+  📌 **¿Tu app tiene un solo Dockerfile, o no tenés frontend separado?** Entonces estos cuatro no
+  aplican y las tres técnicas se cumplen en el backend; decilo en `decisiones.md` en una línea. Lo
+  que **no** vale es inventar tests vacíos para llegar al número.
 
 > 📌 **Las tres técnicas se piden de los DOS lados.** No es que se cuentan una vez y elegís dónde:
 > el parametrizado, el caso de error y el mock van en el backend **y** en el frontend. Son la misma
@@ -1647,8 +1650,8 @@ Tu pipeline del TP4 verifica que el código compila y que la imagen se construye
    - **Si tu stack no es el de la cátedra** (.NET + vitest): qué herramienta usaste para cada fila de
      la tabla «Tu stack, de un vistazo» — el parametrizado, el doble, el medidor de cobertura, el
      umbral que frena y el filtro de qué entra en la cuenta. Se pide en §3 y **se cuenta acá**.
-   - **El ejercicio del camino sin cubrir** (en la placa final del video figura como *«el ejercicio
-     de la rama que faltaba»*: es el mismo) — la *rama de código*, no una rama de git: uno de los
+   - **El ejercicio del camino sin cubrir** (en la filmina de entregables de la Clase 5 figura
+     como *«el ejercicio de la rama sin cubrir»*: es el mismo) — la *rama de código*, no una rama de git: uno de los
      dos caminos que abre un `if` (o un `?.`, o un `??`) y que ningún test recorre. Está en
      §3.0 › *Un test parametrizado y un caso de error*, en el recuadro 🔎, y se hace cuando medís la
      cobertura (§3.1). Van **tres cosas**: qué línea es, qué entrada la recorrería —un valor
@@ -1713,7 +1716,7 @@ Se realiza en **P2**, junto con los TPs 6 a 9. Vas a mostrar tu trabajo y respon
 
 > 🎯 **Se corrige el logro, no la herramienta.** Los ejemplos están escritos sobre la app de la
 > cátedra (.NET + vitest) porque un ejemplo tiene que estar escrito en *algo*; la tabla «Tu stack,
-> de un vistazo», arriba de §3.0, traduce las nueve cosas que se piden. Contá en `decisiones.md`
+> de un vistazo», arriba de §3.0, traduce **cada una** de las cosas que se piden. Contá en `decisiones.md`
 > cuáles usaste.
 
 **Cómo se distingue un 4 de un 8.** Los mínimos de las tareas te dan el 4: están o no están. Lo que
