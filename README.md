@@ -61,11 +61,11 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
 
 | Criterio | Peso |
 |---|---|
-| Configuración técnica (funcionando y **reproducible** — evidencias) | 25% |
-| Claridad y justificación en `decisiones.md` + `evidencias.md` | 25% |
+| Configuración técnica (funcionando y **reproducible** — lo que se ve en el repo) | 25% |
+| Claridad y justificación en `decisiones.md` | 25% |
 | **Defensa oral: comprensión y argumentación** | **50%** |
 
-- **Entrega**: la URL de tu repo público se carga en el **formulario de la cátedra** — hay uno por presentación, y los dos links están acá abajo — antes de la clase de defensa correspondiente. Es un formulario, no una planilla compartida: nadie puede pisar la entrega de otro, y podés volver a abrir la tuya para corregirla. `decisiones.md` y `evidencias.md` viven **en el repo** y se acumulan TP a TP. No hay checkpoints semanales con nota — pero el historial de Git cuenta **cuándo** trabajaste, y un bloque de 4 TPs commiteados la noche anterior a P1 se nota (y se pregunta) en la defensa.
+- **Entrega**: la URL de tu repo público se carga en el **formulario de la cátedra** — hay uno por presentación, y los dos links están acá abajo — antes de la clase de defensa correspondiente. Es un formulario, no una planilla compartida: nadie puede pisar la entrega de otro, y podés volver a abrir la tuya para corregirla. `decisiones.md` vive **en el repo** y se acumula TP a TP. (`evidencias.md` se pidió en el TP1 y el TP2; **desde el TP3 no se pide más**: tu repo es público, y lo que pasó se ve en él.) No hay checkpoints semanales con nota — pero el historial de Git cuenta **cuándo** trabajaste, y un bloque de 4 TPs commiteados la noche anterior a P1 se nota (y se pregunta) en la defensa.
 - **Defensa**: en P1 (TPs 1–4) y P2 (TPs 5–9). Individual, con tu repo abierto, **navegando en vivo** (y desde P2, con tus **entornos vivos**: URLs de QA/PROD, dashboard de análisis, monitor — o tu **fallback local** del TP6/TP7 si el free tier te falló: avisá antes). Cada enunciado publica **preguntas de ejemplo** — para que sepas por dónde viene la cosa y con qué profundidad, no como cuestionario cerrado: las que te haga salen de la teoría enseñada y de tu propio repo.
 - **La regla innegociable**: *si no lo podés explicar, no lo aprobás — aunque funcione.* Y su reversa: un repo con cicatrices bien explicadas vale más que uno perfecto defendido con silencios.
 - **La nota es por presentación, no por TP.** Los 9 TPs **no llevan nota propia**: son lo que defendés en la presentación que les toca (P1 → TPs 1–4 · P2 → TPs 5–9). De cada presentación sale **una nota**, y esas dos notas son las de tu cursada — **van por separado: no se promedian ni se compensan entre sí**.
