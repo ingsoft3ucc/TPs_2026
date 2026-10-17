@@ -27,7 +27,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 | 8 | C7 | Contenido | Contenedores en el pipeline + pruebas e2e | [PDF](clases/Clase07/Clase07-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase07/Clase07-video.mp4) | [TP7](trabajos/07-contenedores-e2e.md) | [Guía en video — parte 1](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp07/TP07-parte1.mp4) · [parte 2](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp07/TP07-parte2.mp4) |
 | 9 | C8 | Contenido | Infraestructura como Código | [PDF](clases/Clase08/Clase08-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase08/Clase08-video.mp4) | [TP8](trabajos/08-iac.md) | [Guía en video — parte 1](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp08/TP08-parte1.mp4) · [parte 2](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp08/TP08-parte2.mp4) |
 | 10 | C9 | Contenido | DevSecOps + Observabilidad + Continuous Feedback | [PDF](clases/Clase09/Clase09-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase09/Clase09-video.mp4) | [TP9](trabajos/09-devsecops-observabilidad.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp09/TP09-video.mp4) |
-| 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | — | — | — | — |
+| 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | [Cómo es la defensa](defensas/defensa-P2.pdf) · fechas, orden y horario: [sorteo](defensas/defensa-P2-fechas.pdf) | — | — | — |
 | 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | — | — | — | — |
 
 > 🎥 Hay **dos tipos de video**: la **grabación de la clase** (la clase completa, tal como se dictó) y la **guía en video del TP** (recorrido de la consigna, paso a paso). Son complementarios: la clase da los fundamentos, la guía muestra cómo resolver la entrega.
@@ -78,7 +78,7 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
   | P2 | TP5 Testing | TP6 CD | TP7 Contenedores + e2e | TP8 IaC | TP9 DevSecOps |
   |---|---|---|---|---|---|
   | Peso | 25% | 25% | 20% | 15% | 15% |
-- **Aprobación y regularidad**: cada presentación se aprueba con **nota ≥ 4** (escala 1–10). Para **regularizar** necesitás **las dos presentaciones aprobadas**.
+- **Aprobación y regularidad**: cada presentación se aprueba con **nota ≥ 4** (escala 1–10; equivale al 60 %). Para **regularizar** necesitás **las dos presentaciones aprobadas**.
 - **Recuperatorio (clase 12): es tu única segunda oportunidad, y alcanza para un solo bloque.** Si una presentación quedó abajo de 4, en la clase 12 volvés a presentar **ese bloque completo** — los TPs 1–4 o los 5–9, según cuál haya sido. Si **las dos** quedaron abajo de 4, la materia queda **libre** (la recursás) — y lo mismo si vas al recuperatorio y tampoco lo aprobás. Ante la duda, avisá temprano y lo acomodamos en el momento, no en la clase 12.
 
 ### El Integrador
@@ -95,8 +95,9 @@ defensa correspondiente.
 | **P1** | TPs 1 a 4 | **[Entregar TPs 1–4](https://docs.google.com/forms/d/e/1FAIpQLSfDN9ytzgGD9RzPu9TDSG1REWhDY-uqlQroKnMWzcJGFArkpQ/viewform)** |
 | **P2** | TPs 5 a 9 | **[Entregar TPs 5–9](https://docs.google.com/forms/d/e/1FAIpQLSe0KrP6Ccw9EntLmzChzh8B7Py8GgmiYXDa-VbuyOoxkJeDWg/viewform)** |
 
-Podés volver a abrir tu entrega y corregirla las veces que quieras hasta la fecha de defensa: se
-toma la última. Es un formulario y no una planilla compartida, así que nadie puede pisar la entrega
+Podés volver a abrir tu entrega y corregirla las veces que quieras **hasta la fecha de corte**: se
+toma la última. Se corrige tu repositorio tal como estaba en GitHub a esa hora (cuenta la hora del
+push): lo que subas después no se corrige. Es un formulario y no una planilla compartida, así que nadie puede pisar la entrega
 de otro.
 
 **Antes de entregar, verificá que estén los tags de los TPs que cubre la presentación**
