@@ -28,7 +28,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 | 9 | C8 | Contenido | Infraestructura como Código | [PDF](clases/Clase08/Clase08-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase08/Clase08-video.mp4) | [TP8](trabajos/08-iac.md) | [Guía en video — parte 1](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp08/TP08-parte1.mp4) · [parte 2](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp08/TP08-parte2.mp4) |
 | 10 | C9 | Contenido | DevSecOps + Observabilidad + Continuous Feedback | [PDF](clases/Clase09/Clase09-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase09/Clase09-video.mp4) | [TP9](trabajos/09-devsecops-observabilidad.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp09/TP09-video.mp4) |
 | 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | [Cómo es la defensa](defensas/defensa-P2.pdf) · fechas, orden y horario: [sorteo](defensas/defensa-P2-fechas.pdf) | — | — | — |
-| 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | — | — | — | — |
+| 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | orden y horario: [vie 13/11](defensas/recuperatorio.pdf) | — | — | — |
 
 > 🎥 Hay **dos tipos de video**: la **grabación de la clase** (la clase completa, tal como se dictó) y la **guía en video del TP** (recorrido de la consigna, paso a paso). Son complementarios: la clase da los fundamentos, la guía muestra cómo resolver la entrega.
 
