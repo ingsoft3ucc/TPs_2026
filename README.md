@@ -29,6 +29,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 | 10 | C9 | Contenido | DevSecOps + Observabilidad + Continuous Feedback | [PDF](clases/Clase09/Clase09-presentacion.pdf) | [Grabación](https://github.com/ingsoft3ucc/TPs_2026/releases/download/clase09/Clase09-video.mp4) | [TP9](trabajos/09-devsecops-observabilidad.md) | [Guía en video](https://github.com/ingsoft3ucc/TPs_2026/releases/download/tp09/TP09-video.mp4) |
 | 11 | **P2** | **Defensa** | **Defensa oral de TPs 5–9** | [Cómo es la defensa](defensas/defensa-P2.pdf) · fechas, orden y horario: [sorteo](defensas/defensa-P2-fechas.pdf) | — | — | — |
 | 12 | **R** | **Recuperatorio** | Se vuelve a presentar el bloque que quedó desaprobado | orden y horario: [vie 13/11](defensas/recuperatorio.pdf) | — | — | — |
+| — | **Final** | **Mesa de final** | Defensa del Integrador: los TPs 1 a 9 completos | — | — | [Integrador](trabajos/10-integrador.md) | — |
 
 > 🎥 Hay **dos tipos de video**: la **grabación de la clase** (la clase completa, tal como se dictó) y la **guía en video del TP** (recorrido de la consigna, paso a paso). Son complementarios: la clase da los fundamentos, la guía muestra cómo resolver la entrega.
 
@@ -36,7 +37,7 @@ Vas a construir, con tus manos y semana a semana, el **sistema de entrega profes
 
 ## 3. La app del semestre (el hilo conductor)
 
-A partir del **TP2** elegís una aplicación **full-stack (frontend + backend + base de datos)** — propia o adaptada de un repo público — y esa misma app te acompaña toda la materia: cada TP le agrega una capa (CI, calidad, CD, imagen, e2e, IaC, seguridad, observabilidad). El **TP Integrador** — condición para rendir el final — pide exactamente esa cadena completa: si venís al día, al llegar a P2 lo tenés ~80% hecho.
+A partir del **TP2** elegís una aplicación **full-stack (frontend + backend + base de datos)** — propia o adaptada de un repo público — y esa misma app te acompaña toda la materia: cada TP le agrega una capa (CI, calidad, CD, imagen, e2e, IaC, seguridad, observabilidad). El **Integrador** — lo que defendés para rendir el final — es exactamente esa cadena completa: si venís al día, al llegar a P2 lo tenés ~80% hecho.
 
 - 📌 **Cómo elegirla**: los 5 criterios de selección y el test de 20 minutos que conviene hacer **antes** de comprometerse con una app están en [`elegir-app.md`](elegir-app.md). Leelo antes del TP2 — es el documento que más dolores de cabeza evita.
 - **Un solo repo**: la app entra al **mismo repo del TP1** (el de las protecciones) — tu historial del semestre es evidencia del Integrador. Los TPs no son entregables sueltos: son **capas sobre el mismo artefacto** (el pipeline del TP4 corre los tests del TP5, el CD del TP6 despliega la imagen del TP7). Un repo por TP obligaría a copiar la app y recrear protecciones, secretos y environments cada semana, y las copias divergen. Si preferís repo nuevo al elegir la app, el TP2 (§3.2) te dice cómo hacerlo bien (migrar `decisiones.md`, recrear protecciones, avisar).
@@ -82,7 +83,7 @@ Así se mira cada TP dentro de su presentación (la nota, como ves más abajo, s
 - **Recuperatorio (clase 12): es tu única segunda oportunidad, y alcanza para un solo bloque.** Si una presentación quedó abajo de 4, en la clase 12 volvés a presentar **ese bloque completo** — los TPs 1–4 o los 5–9, según cuál haya sido. Si **las dos** quedaron abajo de 4, la materia queda **libre** (la recursás) — y lo mismo si vas al recuperatorio y tampoco lo aprobás. Ante la duda, avisá temprano y lo acomodamos en el momento, no en la clase 12.
 
 ### El Integrador
-Condición para **rendir el final**. Es tu app del semestre con la cadena completa — el enunciado se publica en `trabajos/` durante la cursada. Se valida **en vivo** en la mesa.
+Para **rendir el final** defendés el Integrador: tus **TPs 1 a 9 completos**, con la app y el repo del año. No se entrega nada antes: venís a la mesa con tu notebook y lo presentás ahí. Es la parte práctica del final y se aprueba con **4 (60 %)**. Cómo es: [`trabajos/10-integrador.md`](trabajos/10-integrador.md).
 
 
 ### Dónde se entrega
