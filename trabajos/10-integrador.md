@@ -14,7 +14,7 @@ Demostrar, sobre tu propia aplicación, que dominás el ciclo DevOps de punta a 
 
 ## 📋 Qué tiene que tener tu repo
 
-**Lo que pide cada guía de [`trabajos/`](./), del TP1 al TP9. No hay requisitos nuevos**, salvo la sección de cierre de tu `decisiones.md` (abajo). En resumen, la cadena completa sobre tu app (frontend + backend + base de datos), en `main`:
+**Tenés que tener los TPs 1 a 9 completos, como se vieron en clase y como los pide cada guía de [`trabajos/`](./). No se pide nada adicional.** Cualquier mejora o agregado es bienvenido y puede sumar puntos, siempre que lo puedas defender. En resumen, la cadena completa sobre tu app (frontend + backend + base de datos), en `main`:
 
 | | Qué | TPs |
 |---|---|---|
@@ -32,7 +32,7 @@ Cualquier herramienta de CI/CD y cualquier nube valen (riel GitHub, Azure u otra
 Ese día, en `main` de tu repo:
 
 1. **Los tags y releases `v1.0.0` … `v9.0.0`**: marcan dónde cerró cada TP. Si falta alguno, ponelo en el commit donde terminaste ese TP y publicá su release. En la mesa se mira `main` tal como está ese día: si completaste algo después del tag, está ahí y se defiende ahí.
-2. **`decisiones.md` consolidado**: una sección por TP (TP1 a TP9) y, al final, una **sección de cierre** (~1 página): el diagrama de TU cadena completa, las 3 decisiones de diseño que más defendés, y qué harías distinto si empezaras de nuevo.
+2. **`decisiones.md`** con una sección por TP (TP1 a TP9), como lo fuiste armando en cada TP.
 3. **Nada de `evidencias.md` ni capturas**: tu repo es público y se navega — *Actions*, *Deployments*, *Releases*, los PRs, *Security*. Lo que no deja rastro ahí ya está contado en `decisiones.md`.
 
 ## 🟢 Lo que tiene que estar vivo el día de la mesa
